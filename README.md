@@ -8,12 +8,12 @@
 ![workflow-status](https://img.shields.io/github/actions/workflow/status/poliastro/czml3/workflow.yml?branch=main)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
+From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide):
+> CZML is a JSON format for describing a time-dynamic graphical scene, primarily for display in a web browser running Cesium. It describes lines, points, billboards, models, and other graphical primitives, and specifies how they change with time.
+
 czml3 aims to make the process of writing CZML files in Python easy by:
 - Type checking properties
 - Conversion of properties to their expected format
-
-From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide):
-> CZML is a JSON format for describing a time-dynamic graphical scene, primarily for display in a web browser running Cesium. It describes lines, points, billboards, models, and other graphical primitives, and specifies how they change with time.
 
 ## Insallation
 You can install czml3 using pip:
@@ -121,6 +121,4 @@ CZMLWidget(simple)
 ![Widget](https://raw.githubusercontent.com/poliastro/czml3/master/widget-screenshot.png)
 
 ## Contributing
-You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) that we still did not implement. Also, it would be great to have better validation, a Cesium widget in Jupyter notebook and JupyterLab... Ideas welcome!
-
-Before you send us a pull request, remember to reformat all the code: `tox -e reformat`. This will apply ruff and lots of love ❤️
+You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) that we still did not implement. All ideas welcome!
