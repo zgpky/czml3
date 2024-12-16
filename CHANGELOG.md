@@ -13,6 +13,7 @@
   * `Packet.position` can be `Position`, `PositionList` or `PositionListOfLists`
   * `Material.polylineOutline` can be `PolylineMaterial` or `PolylineOutline`
 * Expand validation
+* `Cartesian3Value` (with time values) checks that time is increasing
 
 # v2.0.0
 
