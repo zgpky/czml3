@@ -30,7 +30,7 @@ legacy_tox_ini = """
         py311: {env:PYTHON:python3.11}
         py312: {env:PYTHON:python3.12}
         py313: {env:PYTHON:python3.13}
-        {quality,reformat,test,coverage}: {env:PYTHON:python3}
+        {quality,test,coverage}: {env:PYTHON:python3}
     setenv =
         PYTHONUNBUFFERED = yes
         PYTEST_EXTRA_ARGS = --mypy
@@ -53,15 +53,6 @@ legacy_tox_ini = """
     commands =
         python -m ruff check
         python -m build .
-
-    [testenv:reformat]
-    description = reformats the code using ruff
-    deps =
-        ruff
-    skip_install = true
-    commands =
-        python -m ruff format
-        python -m ruff check --fix
 """
 
 [build-system]
