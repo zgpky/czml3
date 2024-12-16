@@ -52,6 +52,7 @@ legacy_tox_ini = """
     skip_install = true
     commands =
         python -m ruff check
+        python -m ruff format --diff
         python -m build .
 """
 
