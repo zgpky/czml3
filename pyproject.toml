@@ -67,7 +67,7 @@ authors = [
     {name = "Juan Luis Cano Rodríguez", email = "hello@juanlu.space"},
 ]
 description = "Python 3 library to write CZML"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["czml", "cesium"]
 license = {text = "MIT"}
