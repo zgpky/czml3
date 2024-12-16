@@ -63,12 +63,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "czml3"
 authors = [
+    {name = "Daniel Stoops", email = "danielstoops25@gmail.com"},
     {name = "Juan Luis Cano Rodríguez", email = "hello@juanlu.space"},
 ]
 description = "Python 3 library to write CZML"
 readme = "README.rst"
 requires-python = ">=3.10"
-keywords = ["czml", "cesium", "orbits"]
+keywords = ["czml", "cesium"]
 license = {text = "MIT"}
 classifiers = [
     "Intended Audience :: Education",
@@ -83,8 +84,6 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Physics",
-    "Topic :: Scientific/Engineering :: Astronomy",
 ]
 dependencies = [
     "pydantic>=2.10.1",
@@ -108,10 +107,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/poliastro/czml3"
-Repository = "https://github.com/poliastro/czml3"
-Issues = "https://github.com/poliastro/czml3/issues"
-Changelog = "https://github.com/poliastro/czml3/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/Stoops-ML/czml3"
+Repository = "https://github.com/Stoops-ML/czml3"
+Issues = "https://github.com/Stoops-ML/czml3/issues"
+Changelog = "https://github.com/Stoops-ML/czml3/blob/main/CHANGELOG.md"
 
 [tool.setuptools.dynamic]
 version = {attr = "czml3.__version__"}
