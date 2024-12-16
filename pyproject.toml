@@ -96,7 +96,6 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
-    "astropy",
     "pytest",
     "pytest-cov",
     "pytest-mypy",
@@ -143,7 +142,6 @@ disallow_untyped_defs = true
 # Ignore certain missing imports
 [[tool.mypy.overrides]]
 module = [
-    "astropy.*",
     "setuptools.*",
     "w3lib.*",
 ]
