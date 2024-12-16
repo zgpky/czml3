@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/Stoops-ML/czml3/graph/badge.svg?token=EF8SIL2JBV)](https://codecov.io/gh/Stoops-ML/czml3)
 ![pypi-downloads](https://img.shields.io/pepy/dt/czml3?label=pypi%20downloads)
 ![conda-downloads](https://img.shields.io/conda/dn/conda-forge/czml3?label=conda%20downloads)
-![workflow-status](https://img.shields.io/github/actions/workflow/status/Stoops-ML/czml3/workflow.yml?branch=main)
+![workflow-status](https://img.shields.io/github/actions/workflow/status/Stoops-ML/czml3/workflow.yml)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide):
