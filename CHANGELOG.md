@@ -1,3 +1,23 @@
+# v2.1.0
+
+* Add the following czml properties:
+  * `CartographicDegreesListOfListsValue`
+  * `CartographicRadiansListOfListsValue`
+  * `ReferenceListValue`
+  * `ReferenceListOfListsValue`
+  * `Cartesian3ListOfListsValue`
+  * `types.Cartesian3VelocityValue`
+* Change the following czml properties:
+  * `Sequence` -> `TimeIntervalCollection`
+* Fixes:
+  * `Packet.position` can be `Position`, `PositionList` or `PositionListOfLists`
+  * `Material.polylineOutline` can be `PolylineMaterial` or `PolylineOutline`
+* Expand validation
+
+# v2.0.0
+
+* All classes use pydantic
+
 # v0.5.4
 
 * Add several new properties: `ViewFrom`, `Box`, `Corridor`,
