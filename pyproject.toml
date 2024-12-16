@@ -103,6 +103,7 @@ dev = [
     "tox",
     "build",
     "ruff",
+    "numpy",
 ]
 
 [project.urls]
