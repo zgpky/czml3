@@ -1648,3 +1648,8 @@ def test_position_list_of_lists_with_bad_references():
                 values=[["1#this"], ["1#this", "2#this"]]
             ),
         )
+
+
+def test_check_increasing_time():
+    with pytest.raises(TypeError):
+        Cartesian3Value(values=[0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0])
