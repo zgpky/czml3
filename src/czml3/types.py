@@ -181,10 +181,7 @@ class ReferenceValue(BaseCZMLObject):
     @field_validator("value")
     @classmethod
     def _check_string(cls, v):
-        if "#" not in v:
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
+        check_reference(v)
         return v
 
     @model_serializer
@@ -202,12 +199,10 @@ class ReferenceListValue(BaseCZMLObject):
 
     @field_validator("values")
     @classmethod
-    def _check_string(cls, v):
-        if all("#" not in _v for _v in v):
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
-        return v
+    def _check_string(cls, vs):
+        for v in vs:
+            check_reference(v)
+        return vs
 
     @model_serializer
     def custom_serializer(self):
@@ -224,12 +219,11 @@ class ReferenceListOfListsValue(BaseCZMLObject):
 
     @field_validator("values")
     @classmethod
-    def _check_string(cls, v):
-        if all("#" not in _v for v1 in v for _v in v1):
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
-        return v
+    def _check_string(cls, vss):
+        for vs in vss:
+            for v in vs:
+                check_reference(v)
+        return vss
 
     @model_serializer
     def custom_serializer(self):
