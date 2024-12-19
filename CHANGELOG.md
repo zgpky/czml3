@@ -1,3 +1,10 @@
+# v2.2.0
+
+* Add readthedocs support
+* Add docstrings
+* Improve validations
+* Fix typing
+
 # v2.1.0
 
 * Add the following czml properties:
