@@ -4,8 +4,14 @@ import tempfile
 
 import pytest
 
-from czml3 import Document, Packet, Preamble
-from czml3.properties import ImageMaterial, Material, Rectangle, RectangleCoordinates
+from czml3 import CZML_VERSION, Document, Packet
+from czml3.properties import (
+    ImageMaterial,
+    Material,
+    Rectangle,
+    RectangleCoordinates,
+    Uri,
+)
 
 
 @pytest.fixture
@@ -15,7 +21,7 @@ def image():
         data = fp.read()
 
     base64_data = base64.b64encode(data)
-    return base64_data.decode("utf-8")
+    return base64_data.decode()
 
 
 def test_rectangle_coordinates_invalid_if_nothing_given():
@@ -58,7 +64,7 @@ def test_packet_rectangles(image):
                 image=ImageMaterial(
                     transparent=True,
                     repeat=None,
-                    image="data:image/png;base64," + image,
+                    image=Uri(uri="data:image/png;base64," + image),
                 ),
             ),
         ),
@@ -77,14 +83,23 @@ def test_make_czml_png_rectangle_file(image):
                 image=ImageMaterial(
                     transparent=True,
                     repeat=None,
-                    image="data:image/png;base64," + image,
+                    image=Uri(uri="data:image/png;base64," + image),
                 ),
             ),
         ),
     )
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".czml") as out_file:
-        out_file.write(str(Document(packets=[Preamble(), rectangle_packet])))
+        out_file.write(
+            str(
+                Document(
+                    packets=[
+                        Packet(name="document", version=CZML_VERSION),
+                        rectangle_packet,
+                    ]
+                )
+            )
+        )
         exists = os.path.isfile(out_file.name)
 
         # TODO: Should we be testing something else?

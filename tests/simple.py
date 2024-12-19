@@ -1,6 +1,6 @@
 import datetime as dt
 
-from czml3 import Document, Packet, Preamble
+from czml3 import CZML_VERSION, Document, Packet
 from czml3.enums import (
     HorizontalOrigins,
     InterpolationAlgorithms,
@@ -13,8 +13,8 @@ from czml3.properties import (
     Clock,
     Color,
     Label,
-    Material,
     Path,
+    PolylineMaterial,
     Position,
     SolidColorMaterial,
 )
@@ -26,8 +26,10 @@ end = dt.datetime(2012, 3, 16, 10, tzinfo=dt.timezone.utc)
 
 simple = Document(
     packets=[
-        Preamble(
+        Packet(
+            id="document",
             name="simple",
+            version=CZML_VERSION,
             clock=IntervalValue(
                 start=start, end=end, value=Clock(currentTime=start, multiplier=60)
             ),
@@ -179,7 +181,7 @@ simple = Document(
                 ),
                 width=1,
                 resolution=120,
-                material=Material(
+                material=PolylineMaterial(
                     solidColor=SolidColorMaterial(color=Color(rgba=[0, 255, 0]))
                 ),
             ),

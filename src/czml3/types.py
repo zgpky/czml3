@@ -52,7 +52,7 @@ def get_color(color: None | list[float], max_val: float) -> list[float] | None:
 
 
 def check_list_of_list_values(num_points: int, values: list[list[Any]]):
-    """Values that support [X,Y,Z,X,Y,Z,...]"""
+    """Values that support `[X, Y, Z, X, Y, Z, ...]`"""
     if len(values) <= 0:
         raise ValueError("No values present")
     for value in values:
@@ -65,7 +65,7 @@ def check_list_of_list_values(num_points: int, values: list[list[Any]]):
 
 
 def check_list_of_values(num_points: int, values: list[Any]):
-    """Values that support [X,Y,Z,X,Y,Z,...]"""
+    """Values that support `[X, Y, Z, X, Y, Z, ...]`"""
     if len(values) <= 0:
         raise ValueError("No values present")
     if len(values) % num_points != 0:
@@ -75,7 +75,7 @@ def check_list_of_values(num_points: int, values: list[Any]):
 
 
 def check_values(num_points: int, values: list[Any]):
-    """Values that support [X,Y,Z] or [Time,X,Y,Z,Time,X,Y,Z,...]"""
+    """Values that support `[X, Y, Z]` or `[Time, X, Y, Z, Time, X, Y, Z, ...]`"""
     if len(values) <= 0:
         raise ValueError("No values present")
     if not (len(values) % (num_points) == 0 or len(values) % (num_points + 1) == 0):
@@ -117,7 +117,10 @@ def format_datetime_like(dt_object):
 
 
 class FontValue(BaseCZMLObject):
-    """A font, specified using the same syntax as the CSS "font" property."""
+    """A font, specified using the same syntax as the CSS "font" property.
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/FontValue>`__ for it's definition.
+    """
 
     font: str
 
@@ -127,12 +130,9 @@ class FontValue(BaseCZMLObject):
 
 
 class RgbafValue(BaseCZMLObject):
-    """A color specified as an array of color components [Red, Green, Blue, Alpha]
-     where each component is in the range 0.0-1.0. If the array has four elements,
-    the color is constant. If it has five or more elements, they are time-tagged
-    samples arranged as [Time, Red, Green, Blue, Alpha, Time, Red, Green, Blue, Alpha, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
+    """A color specified as an array of color components `[Red, Green, Blue, Alpha]` where each component is in the range 0.0-1.0. If the array has four elements, the color is constant. If it has five or more elements, they are time-tagged samples arranged as `[Time, Red, Green, Blue, Alpha, Time, Red, Green, Blue, Alpha, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/RgbafValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -148,14 +148,9 @@ class RgbafValue(BaseCZMLObject):
 
 
 class RgbaValue(BaseCZMLObject):
-    """A color specified as an array of color components [Red, Green, Blue, Alpha]
-    where each component is in the range 0-255. If the array has four elements,
-    the color is constant.
+    """A color specified as an array of color components `[Red, Green, Blue, Alpha]` where each component is in the range 0-255. If the array has four elements, the color is constant. If it has five or more elements, they are time-tagged samples arranged as `[Time, Red, Green, Blue, Alpha, Time, Red, Green, Blue, Alpha, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    If it has five or more elements, they are time-tagged samples arranged as
-    [Time, Red, Green, Blue, Alpha, Time, Red, Green, Blue, Alpha, ...], where Time
-    is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/RgbaValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -171,9 +166,9 @@ class RgbaValue(BaseCZMLObject):
 
 
 class ReferenceValue(BaseCZMLObject):
-    """Represents a reference to another property. References can be used to specify that two properties on different
-    objects are in fact, the same property.
+    """Represents a reference to another property. References can be used to specify that two properties on different objects are in fact, the same property.
 
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition.
     """
 
     value: str
@@ -181,10 +176,7 @@ class ReferenceValue(BaseCZMLObject):
     @field_validator("value")
     @classmethod
     def _check_string(cls, v):
-        if "#" not in v:
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
+        check_reference(v)
         return v
 
     @model_serializer
@@ -193,21 +185,19 @@ class ReferenceValue(BaseCZMLObject):
 
 
 class ReferenceListValue(BaseCZMLObject):
-    """Represents a reference to another property. References can be used to specify that two properties on different
-    objects are in fact, the same property.
+    """Represents a reference to another property. References can be used to specify that two properties on different objects are in fact, the same property.
 
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceListValue>`__ for it's definition.
     """
 
     values: list[str]
 
     @field_validator("values")
     @classmethod
-    def _check_string(cls, v):
-        if all("#" not in _v for _v in v):
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
-        return v
+    def _check_string(cls, vs):
+        for v in vs:
+            check_reference(v)
+        return vs
 
     @model_serializer
     def custom_serializer(self):
@@ -215,21 +205,20 @@ class ReferenceListValue(BaseCZMLObject):
 
 
 class ReferenceListOfListsValue(BaseCZMLObject):
-    """Represents a reference to another property. References can be used to specify that two properties on different
-    objects are in fact, the same property.
+    """Represents a reference to another property. References can be used to specify that two properties on different objects are in fact, the same property.
 
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceListOfListsValue>`__ for it's definition.
     """
 
     values: list[list[str]]
 
     @field_validator("values")
     @classmethod
-    def _check_string(cls, v):
-        if all("#" not in _v for v1 in v for _v in v1):
-            raise TypeError(
-                "Invalid reference string format. Input must be of the form id#property"
-            )
-        return v
+    def _check_string(cls, vss):
+        for vs in vss:
+            for v in vs:
+                check_reference(v)
+        return vss
 
     @model_serializer
     def custom_serializer(self):
@@ -237,13 +226,9 @@ class ReferenceListOfListsValue(BaseCZMLObject):
 
 
 class Cartesian3Value(BaseCZMLObject):
-    """A three-dimensional Cartesian value specified as [X, Y, Z].
+    """A three-dimensional Cartesian value specified as `[X, Y, Z]`. If the values has three elements, the value is constant. If it has four or more elements, they are time-tagged samples arranged as `[Time, X, Y, Z, Time, X, Y, Z, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    If the values has three elements, the value is constant.
-    If it has four or more elements, they are time-tagged samples
-    arranged as [Time, X, Y, Z, Time, X, Y, Z, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3Value>`__ for it's definition.
     """
 
     values: list[float]
@@ -259,7 +244,10 @@ class Cartesian3Value(BaseCZMLObject):
 
 
 class Cartesian3ListValue(BaseCZMLObject):
-    """A list of three-dimensional Cartesian values specified as [X, Y, Z, X, Y, Z, ...]"""
+    """A list of three-dimensional Cartesian values specified as `[X, Y, Z, X, Y, Z, ...]`
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3ListValue>`__ for it's definition.
+    """
 
     values: list[float]
 
@@ -274,7 +262,10 @@ class Cartesian3ListValue(BaseCZMLObject):
 
 
 class Cartesian3ListOfListsValue(BaseCZMLObject):
-    """A list of lists of three-dimensional Cartesian values specified as [X, Y, Z, X, Y, Z, ...]"""
+    """A list of lists of three-dimensional Cartesian values specified as `[X, Y, Z, X, Y, Z, ...]`
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3ListOfListsValue>`__ for it's definition.
+    """
 
     values: list[list[float]]
 
@@ -289,13 +280,9 @@ class Cartesian3ListOfListsValue(BaseCZMLObject):
 
 
 class Cartesian2Value(BaseCZMLObject):
-    """A two-dimensional Cartesian value specified as [X, Y].
+    """A two-dimensional Cartesian value specified as `[X, Y]`. If the values has two elements, the value is constant. If it has three or more elements, they are time-tagged samples arranged as `[Time, X, Y, Time, X, Y, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    If the values has two elements, the value is constant.
-    If it has three or more elements, they are time-tagged samples
-    arranged as [Time, X, Y, Time, X, Y, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian2Value>`__ for it's definition.
     """
 
     values: list[float]
@@ -311,14 +298,9 @@ class Cartesian2Value(BaseCZMLObject):
 
 
 class CartographicRadiansValue(BaseCZMLObject):
-    """A geodetic, WGS84 position specified as [Longitude, Latitude, Height].
+    """A geodetic, WGS84 position specified as `[Longitude, Latitude, Height]`, where Longitude and Latitude are in radians and Height is in meters. If the array has three elements, the value is constant. If it has four or more elements, they are time-tagged samples arranged as `[Time, Longitude, Latitude, Height, Time, Longitude, Latitude, Height, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    Longitude and Latitude are in radians and Height is in meters.
-    If the array has three elements, the value is constant.
-    If it has four or more elements, they are time-tagged samples
-    arranged as [Time, Longitude, Latitude, Height, Time, Longitude, Latitude, Height, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicRadiansValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -334,14 +316,9 @@ class CartographicRadiansValue(BaseCZMLObject):
 
 
 class CartographicDegreesValue(BaseCZMLObject):
-    """A geodetic, WGS84 position specified as [Longitude, Latitude, Height].
+    """A geodetic, WGS84 position specified as `[Longitude, Latitude, Height]`, where Longitude and Latitude are in degrees and Height is in meters. If the array has three elements, the value is constant. If it has four or more elements, they are time-tagged samples arranged as `[Time, Longitude, Latitude, Height, Time, Longitude, Latitude, Height, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    Longitude and Latitude are in degrees and Height is in meters.
-    If the array has three elements, the value is constant.
-    If it has four or more elements, they are time-tagged samples
-    arranged as [Time, Longitude, Latitude, Height, Time, Longitude, Latitude, Height, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicDegreesValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -357,14 +334,9 @@ class CartographicDegreesValue(BaseCZMLObject):
 
 
 class Cartesian3VelocityValue(BaseCZMLObject):
-    """A geodetic, WGS84 position specified as [Longitude, Latitude, Height].
+    """A three-dimensional Cartesian value and its derivative specified as `[X, Y, Z, dX, dY, dZ]`. If the array has six elements, the value is constant. If it has seven or more elements, they are time-tagged samples arranged as `[Time, X, Y, Z, dX, dY, dZ, Time, X, Y, Z, dX, dY, dZ, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    Longitude and Latitude are in degrees and Height is in meters.
-    If the array has three elements, the value is constant.
-    If it has four or more elements, they are time-tagged samples
-    arranged as [Time, Longitude, Latitude, Height, Time, Longitude, Latitude, Height, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3VelocityValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -382,7 +354,7 @@ class Cartesian3VelocityValue(BaseCZMLObject):
 class StringValue(BaseCZMLObject):
     """A string value.
 
-    The string can optionally vary with time.
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/StringValue>`__ for it's definition.
     """
 
     string: str
@@ -393,8 +365,10 @@ class StringValue(BaseCZMLObject):
 
 
 class CartographicRadiansListValue(BaseCZMLObject):
-    """A list of geodetic, WGS84 positions specified as [Longitude, Latitude, Height, Longitude, Latitude, Height, ...],
-    where Longitude and Latitude are in radians and Height is in meters."""
+    """A list of geodetic, WGS84 positions specified as `[Longitude, Latitude, Height, Longitude, Latitude, Height, ...]`, where Longitude and Latitude are in radians and Height is in meters.
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicRadiansListValue>`__ for it's definition.
+    """
 
     values: list[float]
 
@@ -409,7 +383,10 @@ class CartographicRadiansListValue(BaseCZMLObject):
 
 
 class CartographicRadiansListOfListsValue(BaseCZMLObject):
-    """A list of lists of geodetic, WGS84 positions specified as [Longitude, Latitude, Height, Longitude, Latitude, Height, ...], where Longitude and Latitude are in radians and Height is in meters"""
+    """A list of lists of geodetic, WGS84 positions specified as `[Longitude, Latitude, Height, Longitude, Latitude, Height, ...]`, where Longitude and Latitude are in radians and Height is in meters
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicRadiansListOfListsValue>`__ for it's definition.
+    """
 
     values: list[list[float]]
 
@@ -424,8 +401,10 @@ class CartographicRadiansListOfListsValue(BaseCZMLObject):
 
 
 class CartographicDegreesListValue(BaseCZMLObject):
-    """A list of geodetic, WGS84 positions specified as [Longitude, Latitude, Height, Longitude, Latitude, Height, ...],
-    where Longitude and Latitude are in degrees and Height is in meters."""
+    """A list of geodetic, WGS84 positions specified as `[Longitude, Latitude, Height, Longitude, Latitude, Height, ...]`, where Longitude and Latitude are in degrees and Height is in meters.
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicDegreesListValue>`__ for it's definition.
+    """
 
     values: list[float]
 
@@ -440,7 +419,10 @@ class CartographicDegreesListValue(BaseCZMLObject):
 
 
 class CartographicDegreesListOfListsValue(BaseCZMLObject):
-    """A list of lists of geodetic, WGS84 positions specified as [Longitude, Latitude, Height, Longitude, Latitude, Height, ...], where Longitude and Latitude are in degrees and Height is in meters"""
+    """A list of lists of geodetic, WGS84 positions specified as `[Longitude, Latitude, Height, Longitude, Latitude, Height, ...]`, where Longitude and Latitude are in degrees and Height is in meters
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicDegreesListOfListsValue>`__ for it's definition.
+    """
 
     values: list[list[float]]
 
@@ -455,10 +437,9 @@ class CartographicDegreesListOfListsValue(BaseCZMLObject):
 
 
 class DistanceDisplayConditionValue(BaseCZMLObject):
-    """A value indicating the visibility of an object based on the distance to the camera, specified as two values
-    [NearDistance, FarDistance]. If the array has two elements, the value is constant. If it has three or more elements,
-    they are time-tagged samples arranged as [Time, NearDistance, FarDistance, Time, NearDistance, FarDistance, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
+    """A value indicating the visibility of an object based on the distance to the camera, specified as two values `[NearDistance, FarDistance]`. If the array has two elements, the value is constant. If it has three or more elements, they are time-tagged samples arranged as `[Time, NearDistance, FarDistance, Time, NearDistance, FarDistance, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/DistanceDisplayConditionValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -474,11 +455,9 @@ class DistanceDisplayConditionValue(BaseCZMLObject):
 
 
 class NearFarScalarValue(BaseCZMLObject):
-    """A near-far scalar value specified as four values [NearDistance, NearValue, FarDistance, FarValue].
+    """A near-far scalar value specified as four values `[NearDistance, NearValue, FarDistance, FarValue]`. If the array has four elements, the value is constant. If it has five or more elements, they are time-tagged samples arranged as `[Time, NearDistance, NearValue, FarDistance, FarValue, Time, NearDistance, NearValue, FarDistance, FarValue, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-     If the array has four elements, the value is constant. If it has five or more elements, they are time-tagged
-    samples arranged as [Time, NearDistance, NearValue, FarDistance, FarValue, Time, NearDistance, NearValue,
-    FarDistance, FarValue, ...], where Time is an ISO 8601 date and time string or seconds since epoch.
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/NearFarScalarValue>`__ for it's definition.
     """
 
     values: list[float]
@@ -539,7 +518,10 @@ class IntervalValue(BaseCZMLObject):
 
 
 class TimeIntervalCollection(BaseCZMLObject):
-    """Sequence, list, array of objects."""
+    """A collection of time intervals, specified in ISO8601 interval format.
+
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/TimeIntervalCollection>`__ for it's definition.
+    """
 
     values: list[TimeInterval] | list[IntervalValue]
 
@@ -549,13 +531,9 @@ class TimeIntervalCollection(BaseCZMLObject):
 
 
 class UnitQuaternionValue(BaseCZMLObject):
-    """A set of 4-dimensional coordinates used to represent rotation in 3-dimensional space.
+    """A set of 4-dimensional coordinates used to represent rotation in 3-dimensional space. It's specified as `[X, Y, Z, W]`. If the array has four elements, the value is constant. If it has five or more elements, they are time-tagged samples arranged as `[Time, X, Y, Z, W, Time, X, Y, Z, W, ...]`, where Time is an ISO 8601 date and time string or seconds since epoch.
 
-    It's specified as [X, Y, Z, W]. If the array has four elements, the value is constant.
-    If it has five or more elements, they are time-tagged samples arranged as
-    [Time, X, Y, Z, W, Time, X, Y, Z, W, ...],
-    where Time is an ISO 8601 date and time string or seconds since epoch.
-
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/UnitQuaternionValue>`__ for it's definition.
     """
 
     values: list[float]

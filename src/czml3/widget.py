@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, Field
 
-from .core import Document, Preamble
+from .core import CZML_VERSION, Document, Packet
 
 TERRAIN = {
     "Cesium": "Cesium.createWorldTerrain()",
@@ -75,7 +75,9 @@ require(['cesium'], function (Cesium) {{
 
 
 class CZMLWidget(BaseModel):
-    document: Document = Field(default=Document(packets=[Preamble()]))
+    document: Document = Field(
+        default=Document(packets=[Packet(id="document", version=CZML_VERSION)])
+    )
     cesium_version: str = Field(default="1.88")
     ion_token: str = Field(default="")
     terrain: str = Field(default=TERRAIN["Ellipsoid"])

@@ -1,5 +1,5 @@
 def test_example0():
-    from czml3 import Document, Packet, Preamble
+    from czml3 import CZML_VERSION, Document, Packet
     from czml3.properties import (
         Box,
         BoxDimensions,
@@ -13,8 +13,8 @@ def test_example0():
     expected_result = """[
     {
         "id": "document",
-        "version": "1.0",
-        "name": "box"
+        "name": "box",
+        "version": "1.0"
     },
     {
         "id": "my_id",
@@ -61,7 +61,9 @@ def test_example0():
             ),
         ),
     )
-    doc = Document(packets=[Preamble(name="box"), packet_box])
+    doc = Document(
+        packets=[Packet(id="document", name="box", version=CZML_VERSION), packet_box]
+    )
     assert str(doc) == expected_result
 
 
