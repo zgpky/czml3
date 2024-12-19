@@ -6,7 +6,7 @@
 ![pypi-downloads](https://img.shields.io/pepy/dt/czml3?label=pypi%20downloads)
 ![conda-downloads](https://img.shields.io/conda/dn/conda-forge/czml3?label=conda%20downloads)
 ![workflow-status](https://img.shields.io/github/actions/workflow/status/Stoops-ML/czml3/workflow.yml)
-![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+[![Documentation Status](https://readthedocs.org/projects/czml3/badge/?version=v2.2.0)](https://czml3.readthedocs.io/en/v2.2.0/?badge=v2.2.0)
 
 From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide):
 > CZML is a JSON format for describing a time-dynamic graphical scene, primarily for display in a web browser running Cesium. It describes lines, points, billboards, models, and other graphical primitives, and specifies how they change with time.
