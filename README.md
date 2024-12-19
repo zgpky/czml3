@@ -30,17 +30,18 @@ conda install czml3 --channel conda-forge
 A CZML document is a list of *packets*, which have several properties. Recreating the blue box from Cesium sandcastle's [CZML Box](https://sandcastle.cesium.com/?src=CZML%20Box.html&label=CZML):
 
 ```
-from czml3 import Document, Packet, Preamble
+from czml3 import CZML_VERSION, Document, Packet
 from czml3.properties import (
     Box,
     BoxDimensions,
-    Cartesian3Value,
     Color,
     Material,
     Position,
     SolidColorMaterial,
 )
+from czml3.types import Cartesian3Value
 packet_box = Packet(
+    id="my_id",  # fixing id here to ensure test passes
     position=Position(cartographicDegrees=[-114.0, 40.0, 300000.0]),
     box=Box(
         dimensions=BoxDimensions(
@@ -51,18 +52,20 @@ packet_box = Packet(
         ),
     ),
 )
-doc = Document(packets=[Preamble(name="box"), packet_box])
+doc = Document(
+    packets=[Packet(id="document", name="box", version=CZML_VERSION), packet_box]
+)
 print(doc)
 ```
 ```
 [
     {
         "id": "document",
-        "version": "1.0",
-        "name": "box"
+        "name": "box",
+        "version": "1.0"
     },
     {
-        "id": "b9f211b1-6e9d-45b2-b484-516d127ffa22",
+        "id": "my_id",
         "position": {
             "cartographicDegrees": [
                 -114.0,
@@ -95,7 +98,7 @@ print(doc)
 ]
 ```
 
-czml3 uses [pydantic](https://docs.pydantic.dev/latest/) for all classes. As such czml3 automatically converts some properties to their appropriate type. For example, the following creates a Position property of doubles using a numpy array of interger type:
+czml3 uses [pydantic](https://docs.pydantic.dev/latest/) for all classes. As such czml3 is able to [coerce data to their right type](https://docs.pydantic.dev/latest/why/#json-schema). For example, the following creates a Position property of doubles using a numpy array of interger type:
 ```
 import numpy as np
 from czml3.properties import Position
@@ -111,14 +114,7 @@ print(Position(cartographicDegrees=np.array([-114, 40, 300000], dtype=int)))
 }
 ```
 
-## Jupyter Widget
-You can easily display your CZML document using our interactive widget:
-```
-from czml3.examples import simple
-from czml3.widget import CZMLWidget
-CZMLWidget(simple)
-```
-![Widget](https://raw.githubusercontent.com/poliastro/czml3/master/widget-screenshot.png)
-
 ## Contributing
-You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) that we still did not implement. All ideas welcome!
+You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) and validations that we still did not implement, which can be found [here](MissingProperties.md).
+
+All ideas welcome!
