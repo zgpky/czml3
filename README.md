@@ -13,7 +13,8 @@ From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-wri
 
 czml3 aims to make the process of writing CZML files in Python easy by:
 - Type checking properties
-- Conversion of properties to their expected format
+- Cooercion of data to their required format
+- Creating minimal CZML files that only contains fields with information
 
 ## Insallation
 You can install czml3 using pip:
