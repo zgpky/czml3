@@ -1037,7 +1037,7 @@ def test_preamble_position_supplied():
                     id="document",
                     version="1.0",
                     name="Test Document",
-                    position={"cartesian": [0, 0, 0]},
+                    position=Position(cartesian=[0, 0, 0]),
                 )
             ]
         )
