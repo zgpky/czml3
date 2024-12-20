@@ -108,10 +108,40 @@ class Document(BaseCZMLObject):
     @field_validator("packets")
     @classmethod
     def validate_packets(cls, packets):
-        if packets[0].version is None:
+        if packets[0].version is None or packets[0].name is None:
             raise ValueError(
-                "The first packet must be a preamble and include `version`"
+                "The first packet must be a preamble and include 'version' and 'name' properties."
             )
+        if packets[0].id != "document":
+            raise ValueError("The first packet must have an ID of 'document'.")
+        for p in (
+            "delete",
+            "parent",
+            "availability",
+            "properties",
+            "position",
+            "orientation",
+            "viewFrom",
+            "billboard",
+            "box",
+            "corridor",
+            "cylinder",
+            "ellipse",
+            "ellipsoid",
+            "label",
+            "model",
+            "path",
+            "point",
+            "polygon",
+            "polyline",
+            "rectangle",
+            "tileset",
+            "wall",
+        ):
+            if getattr(packets[0], p) is not None:
+                raise ValueError(
+                    f"The first packet must not include the '{p}' property"
+                )
         return packets
 
     @model_serializer

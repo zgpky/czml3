@@ -2,7 +2,7 @@ from czml3 import CZML_VERSION, Document, Packet
 
 
 def test_document_has_expected_packets():
-    preamble = Packet(version=CZML_VERSION)
+    preamble = Packet(version=CZML_VERSION, name="document", id="document")
     packet0 = Packet(id="id_00")
     packet1 = Packet(id="id_01")
 
@@ -12,10 +12,11 @@ def test_document_has_expected_packets():
 
 
 def test_doc_repr():
-    packet = Packet(id="id_00", version=CZML_VERSION)
+    packet = Packet(id="document", name="name", version=CZML_VERSION)
     expected_result = """[
     {
-        "id": "id_00",
+        "id": "document",
+        "name": "name",
         "version": "CZML_VERSION"
     }
 ]""".replace("CZML_VERSION", CZML_VERSION)
@@ -26,9 +27,11 @@ def test_doc_repr():
 
 
 def test_doc_dumps():
-    packet = Packet(id="id_00", version=CZML_VERSION)
-    expected_result = """[{"id":"id_00","version":"CZML_VERSION"}]""".replace(
-        "CZML_VERSION", CZML_VERSION
+    packet = Packet(id="document", version=CZML_VERSION, name="name")
+    expected_result = (
+        """[{"id":"document","name":"name","version":"CZML_VERSION"}]""".replace(
+            "CZML_VERSION", CZML_VERSION
+        )
     )
 
     document = Document(packets=[packet])
