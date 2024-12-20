@@ -1,3 +1,10 @@
+# v2.2.1
+
+* Expand preamble checking in Document()
+* Box() requires dimensions
+* Rectangle() requires coordinates
+* Reinstate LICENSE file (required for conda)
+
 # v2.2.0
 
 * Add readthedocs support
