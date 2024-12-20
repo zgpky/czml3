@@ -94,7 +94,7 @@ def test_make_czml_png_rectangle_file(image):
             str(
                 Document(
                     packets=[
-                        Packet(name="document", version=CZML_VERSION),
+                        Packet(id="document", name="document", version=CZML_VERSION),
                         rectangle_packet,
                     ]
                 )

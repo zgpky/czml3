@@ -4,15 +4,23 @@ from uuid import UUID
 
 import pytest
 
-from czml3 import CZML_VERSION, Packet
+from czml3 import CZML_VERSION, Document, Packet
 from czml3.enums import InterpolationAlgorithms, ReferenceFrames
 from czml3.properties import (
     Billboard,
+    Box,
+    BoxDimensions,
     Color,
+    Corridor,
+    Cylinder,
+    Ellipse,
     Ellipsoid,
     EllipsoidRadii,
     Label,
     Material,
+    Model,
+    Orientation,
+    Path,
     Point,
     Polygon,
     Polyline,
@@ -27,7 +35,12 @@ from czml3.properties import (
     PolylineOutlineMaterial,
     Position,
     PositionList,
+    Rectangle,
+    RectangleCoordinates,
     SolidColorMaterial,
+    Tileset,
+    ViewFrom,
+    Wall,
 )
 from czml3.types import (
     Cartesian3Value,
@@ -642,3 +655,405 @@ def test_different_availabilities():
     )
     assert p1 != p2
     assert str(p1) != str(p2)
+
+
+def test_preamble_no_version():
+    with pytest.raises(
+        ValueError,
+        match="The first packet must be a preamble and include 'version' and 'name' properties.",
+    ):
+        Document(packets=[Packet(name="Test Packet", id="document")])
+
+
+def test_preamble_no_name():
+    with pytest.raises(
+        ValueError,
+        match="The first packet must be a preamble and include 'version' and 'name' properties.",
+    ):
+        Document(packets=[Packet(version="Test Packet", id="document")])
+
+
+def test_preamble_no_id():
+    with pytest.raises(
+        ValueError, match="The first packet must have an ID of 'document'."
+    ):
+        Document(packets=[Packet(version="Test Packet", name="Test Packet")])
+
+
+def test_preamble_bad_id():
+    with pytest.raises(
+        ValueError, match="The first packet must have an ID of 'document'."
+    ):
+        Document(packets=[Packet(version="Test Packet", name="Test Packet", id="name")])
+
+
+def test_preamble_wall_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'wall' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    wall=Wall(positions=PositionList(cartesian=[0, 0, 0])),
+                )
+            ]
+        )
+
+
+def test_preamble_tileset_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'tileset' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    tileset=Tileset(uri="file://tileset.json"),
+                )
+            ]
+        )
+
+
+def test_preamble_rectangle_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'rectangle' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    rectangle=Rectangle(
+                        coordinates=RectangleCoordinates(wsen=[0, 0, 0])
+                    ),
+                )
+            ]
+        )
+
+
+def test_preamble_polyline_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'polyline' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    polyline=Polyline(
+                        positions=PositionList(cartographicDegrees=[0, 0, 0])
+                    ),
+                )
+            ]
+        )
+
+
+def test_preamble_polygon_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'polygon' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    polygon=Polygon(
+                        positions=PositionList(cartographicDegrees=[0, 0, 0])
+                    ),
+                )
+            ]
+        )
+
+
+def test_preamble_point_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'point' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    point=Point(),
+                )
+            ]
+        )
+
+
+def test_preamble_availability_supplied():
+    with pytest.raises(
+        ValueError,
+        match="The first packet must not include the 'availability' property",
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    availability=TimeIntervalCollection(
+                        values=[
+                            TimeInterval(
+                                start=dt.datetime(
+                                    2019, 3, 20, 12, tzinfo=dt.timezone.utc
+                                ),
+                                end=dt.datetime(
+                                    2019, 4, 20, 12, tzinfo=dt.timezone.utc
+                                ),
+                            )
+                        ]
+                    ),
+                )
+            ]
+        )
+
+
+def test_preamble_model_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'model' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    model=Model(gltf="file://model.glb"),
+                )
+            ]
+        )
+
+
+def test_preamble_path_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'path' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    path=Path(),
+                )
+            ]
+        )
+
+
+def test_preamble_label_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'label' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    label=Label(),
+                )
+            ]
+        )
+
+
+def test_preamble_ellipse_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'ellipse' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    ellipse=Ellipse(semiMajorAxis=1000.0, semiMinorAxis=1000.0),
+                )
+            ]
+        )
+
+
+def test_preamble_ellipsoid_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'ellipsoid' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    ellipsoid=Ellipsoid(radii=EllipsoidRadii(cartesian=[0, 0, 0])),
+                )
+            ]
+        )
+
+
+def test_preamble_cylinder_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'cylinder' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    cylinder=Cylinder(length=1, topRadius=1, bottomRadius=1),
+                )
+            ]
+        )
+
+
+def test_preamble_corridor_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'corridor' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    corridor=Corridor(
+                        positions=PositionList(cartographicDegrees=[0, 0, 0]), width=2
+                    ),
+                )
+            ]
+        )
+
+
+def test_preamble_box_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'box' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    box=Box(dimensions=BoxDimensions(cartesian=[0, 0, 0])),
+                )
+            ]
+        )
+
+
+def test_preamble_billboard_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'billboard' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    billboard=Billboard(image="file://image.png"),
+                )
+            ]
+        )
+
+
+def test_preamble_orientation_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'orientation' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    orientation=Orientation(unitQuaternion=[0, 0, 0, 1]),
+                )
+            ]
+        )
+
+
+def test_preamble_viewFrom_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'viewFrom' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    viewFrom=ViewFrom(cartesian=[0, 0, 0]),
+                )
+            ]
+        )
+
+
+def test_preamble_delete_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'delete' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    delete=False,
+                )
+            ]
+        )
+
+
+def test_preamble_parent_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'parent' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    version="Test Packet",
+                    name="Test Packet",
+                    id="document",
+                    parent="parent",
+                )
+            ]
+        )
+
+
+def test_preamble_position_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'position' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    id="document",
+                    version="1.0",
+                    name="Test Document",
+                    position=Position(cartesian=[0, 0, 0]),
+                )
+            ]
+        )
+
+
+def test_preamble_properties_supplied():
+    with pytest.raises(
+        ValueError, match="The first packet must not include the 'properties' property"
+    ):
+        Document(
+            packets=[
+                Packet(
+                    id="document",
+                    version="1.0",
+                    name="Test Document",
+                    properties={"non_allowed_property": "value"},
+                )
+            ]
+        )

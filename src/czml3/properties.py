@@ -1104,7 +1104,7 @@ class Box(BaseCZMLObject):
 
     show: None | bool | TimeIntervalCollection = Field(default=None)
     """Whether or not the box is shown."""
-    dimensions: None | BoxDimensions | TimeIntervalCollection = Field(default=None)
+    dimensions: BoxDimensions | TimeIntervalCollection = Field()
     """The dimensions of the box. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/BoxDimensions>`__ for it's definition."""
     heightReference: None | HeightReference | TimeIntervalCollection = Field(
         default=None
@@ -1164,9 +1164,7 @@ class Rectangle(BaseCZMLObject, Interpolatable, Deletable):
 
     show: None | bool | TimeIntervalCollection = Field(default=None)
     """Whether or not the rectangle is shown."""
-    coordinates: None | RectangleCoordinates | TimeIntervalCollection = Field(
-        default=None
-    )
+    coordinates: None | RectangleCoordinates | TimeIntervalCollection = Field()
     """The coordinates of the rectangle. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/RectangleCoordinates>`__ for it's definition."""
     fill: None | bool | TimeIntervalCollection = Field(default=None)
     """Whether or not the rectangle is filled."""

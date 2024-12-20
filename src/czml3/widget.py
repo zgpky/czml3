@@ -76,7 +76,9 @@ require(['cesium'], function (Cesium) {{
 
 class CZMLWidget(BaseModel):
     document: Document = Field(
-        default=Document(packets=[Packet(id="document", version=CZML_VERSION)])
+        default=Document(
+            packets=[Packet(id="document", name="name", version=CZML_VERSION)]
+        )
     )
     cesium_version: str = Field(default="1.88")
     ion_token: str = Field(default="")
