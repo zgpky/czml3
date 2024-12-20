@@ -1104,7 +1104,7 @@ class Box(BaseCZMLObject):
 
     show: None | bool | TimeIntervalCollection = Field(default=None)
     """Whether or not the box is shown."""
-    dimensions: None | BoxDimensions | TimeIntervalCollection = Field(default=None)
+    dimensions: BoxDimensions | TimeIntervalCollection = Field()
     """The dimensions of the box. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/BoxDimensions>`__ for it's definition."""
     heightReference: None | HeightReference | TimeIntervalCollection = Field(
         default=None
