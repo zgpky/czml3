@@ -49,7 +49,6 @@ from czml3.properties import (
     PositionList,
     PositionListOfLists,
     RectangleCoordinates,
-    ReferenceValue,
     ShadowMode,
     SolidColorMaterial,
     StripeMaterial,
@@ -72,6 +71,7 @@ from czml3.types import (
     DistanceDisplayConditionValue,
     IntervalValue,
     NearFarScalarValue,
+    ReferenceValue,
     ReferenceListOfListsValue,
     ReferenceListValue,
     TimeInterval,
@@ -1789,12 +1789,12 @@ def test_packet_billboard():
     assert str(packet) == expected_result
 
 
-@pytest.mark.xfail(reason="Reference value needs further clarifying")
-def test_uri_ref():
-    expected_result = """{
-    "uri": "file://image.png",
-    "reference": "this#that"
-}"""
-    uri = Uri(uri="file://image.png", reference="this#that")
-    uri1 = Uri(uri="file://image.png", reference=ReferenceValue(value="this#that"))
-    assert str(uri) == str(uri1) == expected_result
+# @pytest.mark.xfail(reason="Reference value needs further clarifying")
+# def test_uri_ref():
+#     expected_result = """{
+#     "uri": "file://image.png",
+#     "reference": "this#that"
+# }"""
+#     uri = Uri(uri="file://image.png", reference="this#that")
+#     uri1 = Uri(uri="file://image.png", reference=ReferenceValue(value="this#that"))
+#     assert str(uri) == str(uri1) == expected_result
