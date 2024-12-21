@@ -1575,10 +1575,10 @@ class Uri(BaseCZMLObject, Deletable):
 
     uri: None | str | TimeIntervalCollection = Field(default=None)
     """The URI value."""
-    reference: None | ReferenceValue | str | TimeIntervalCollection = Field(
-        default=None
-    )
-    """The color specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+    # reference: None | ReferenceValue | str | TimeIntervalCollection = Field(
+    #     default=None
+    # )
+    # """The color specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
     @field_validator("uri")
     @classmethod
@@ -1597,12 +1597,12 @@ class Uri(BaseCZMLObject, Deletable):
         #     "uri must be a URL, a data URI or base64 encoded string."
         # )
 
-    @field_validator("reference")
-    @classmethod
-    def validate_reference(cls, r):
-        if isinstance(r, str):
-            return ReferenceValue(value=r)
-        return r
+    # @field_validator("reference")
+    # @classmethod
+    # def validate_reference(cls, r):
+    #     if isinstance(r, str):
+    #         return ReferenceValue(value=r)
+    #     return r
 
     @model_serializer
     def custom_serializer(self) -> None | str | TimeIntervalCollection:
