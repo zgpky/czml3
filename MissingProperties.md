@@ -19,6 +19,7 @@ The following CZML properties need to be added:
 - [CustomProperties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CustomProperties)
 - [CustomProperty](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CustomProperty)
 - [PolylineVolume](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/PolylineVolume)
+- [UriValue](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/UriValue)
 
 The following CZML properties have missing inputs:
 - [Packet](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet)
@@ -30,3 +31,4 @@ The following CZML properties have missing inputs:
 Broken validations:
 - The `Uri._check_uri` does not check base64 images correctly.
 - The `Uri._check_uri` does not allow relative paths, which seems to be supported despite it not being a valid uri value.
+- The `Uri.reference` is stated in the [CZML documentation](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Uri) but `Uri` returns only the `uri` property.
