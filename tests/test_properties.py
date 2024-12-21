@@ -13,6 +13,7 @@ from czml3.enums import (
 )
 from czml3.properties import (
     ArcType,
+    Billboard,
     Box,
     BoxDimensions,
     CheckerboardMaterial,
@@ -48,6 +49,7 @@ from czml3.properties import (
     PositionList,
     PositionListOfLists,
     RectangleCoordinates,
+    ReferenceValue,
     ShadowMode,
     SolidColorMaterial,
     StripeMaterial,
@@ -187,6 +189,36 @@ def test_polyline():
         ),
     )
     assert str(pol) == expected_result
+
+
+def test_material_solid_color_with_reference():
+    expected_result = """{
+    "solidColor": {
+        "color": {
+            "rgba": [
+                200.0,
+                100.0,
+                30.0,
+                255.0
+            ],
+            "reference": "this#that"
+        }
+    }
+}"""
+    pol_mat = PolylineMaterial(
+        solidColor=SolidColorMaterial(
+            color=Color(rgba=[200, 100, 30], reference="this#that")
+        )
+    )
+    assert str(pol_mat) == expected_result
+    pol_mat = PolylineMaterial(
+        solidColor=SolidColorMaterial(
+            color=Color(
+                rgba=[200, 100, 30], reference=ReferenceValue(value="this#that")
+            )
+        )
+    )
+    assert str(pol_mat) == expected_result
 
 
 def test_material_solid_color():
@@ -717,7 +749,10 @@ def test_position_reference():
     "reference": "this#satellite"
 }"""
     pos = Position(cartesian=[0, 0, 0], reference="this#satellite")
-
+    assert str(pos) == expected_result
+    pos = Position(
+        cartesian=[0, 0, 0], reference=ReferenceValue(value="this#satellite")
+    )
     assert str(pos) == expected_result
 
 
@@ -731,7 +766,10 @@ def test_viewfrom_reference():
     "reference": "this#satellite"
 }"""
     v = ViewFrom(reference="this#satellite", cartesian=[1.0, 1.0, 1.0])
-
+    assert str(v) == expected_result
+    v = ViewFrom(
+        reference=ReferenceValue(value="this#satellite"), cartesian=[1.0, 1.0, 1.0]
+    )
     assert str(v) == expected_result
 
 
@@ -848,8 +886,13 @@ def test_model():
     result = Model(
         gltf="https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb"
     )
+    result1 = Model(
+        gltf=Uri(
+            uri="https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb"
+        )
+    )
 
-    assert str(result) == expected_result
+    assert str(result) == str(result1) == expected_result
 
 
 @pytest.mark.xfail
@@ -1090,7 +1133,11 @@ def test_tileset():
     tileset = Tileset(
         show=True, uri="../SampleData/Cesium3DTiles/Batched/BatchedColors/tileset.json"
     )
-    assert str(tileset) == expected_result
+    tileset1 = Tileset(
+        show=True,
+        uri=Uri(uri="../SampleData/Cesium3DTiles/Batched/BatchedColors/tileset.json"),
+    )
+    assert str(tileset) == str(tileset1) == expected_result
 
 
 def test_check_classes_with_references_ViewFrom():
@@ -1110,6 +1157,11 @@ def test_check_classes_with_references_ViewFrom():
 def test_check_classes_with_references_EllipsoidRadii():
     assert (
         str(EllipsoidRadii(cartesian=[0, 0, 0], reference="this#that"))
+        == str(
+            EllipsoidRadii(
+                cartesian=[0, 0, 0], reference=ReferenceValue(value="this#that")
+            )
+        )
         == """{
     "cartesian": [
         0.0,
@@ -1124,6 +1176,11 @@ def test_check_classes_with_references_EllipsoidRadii():
 def test_check_classes_with_references_ArcType():
     assert (
         str(ArcType(arcType=ArcTypes.GEODESIC, reference="this#that"))
+        == str(
+            ArcType(
+                arcType=ArcTypes.GEODESIC, reference=ReferenceValue(value="this#that")
+            )
+        )
         == """{
     "arcType": "GEODESIC",
     "reference": "this#that"
@@ -1148,6 +1205,11 @@ def test_check_classes_with_references_Position():
 def test_check_classes_with_references_Orientation():
     assert (
         str(Orientation(unitQuaternion=[0, 0, 0, 0], reference="this#that"))
+        == str(
+            Orientation(
+                unitQuaternion=[0, 0, 0, 0], reference=ReferenceValue(value="this#that")
+            )
+        )
         == """{
     "unitQuaternion": [
         0.0,
@@ -1163,6 +1225,11 @@ def test_check_classes_with_references_Orientation():
 def test_check_classes_with_references_NearFarScalar():
     assert (
         str(NearFarScalar(nearFarScalar=[0, 0, 0, 0], reference="this#that"))
+        == str(
+            NearFarScalar(
+                nearFarScalar=[0, 0, 0, 0], reference=ReferenceValue(value="this#that")
+            )
+        )
         == """{
     "nearFarScalar": [
         0.0,
@@ -1178,6 +1245,12 @@ def test_check_classes_with_references_NearFarScalar():
 def test_check_classes_with_references_CornerType():
     assert (
         str(CornerType(cornerType=CornerTypes.BEVELED, reference="this#that"))
+        == str(
+            CornerType(
+                cornerType=CornerTypes.BEVELED,
+                reference=ReferenceValue(value="this#that"),
+            )
+        )
         == """{
     "cornerType": "BEVELED",
     "reference": "this#that"
@@ -1190,6 +1263,12 @@ def test_check_classes_with_references_ColorBlendMode():
         str(
             ColorBlendMode(
                 colorBlendMode=ColorBlendModes.HIGHLIGHT, reference="this#that"
+            )
+        )
+        == str(
+            ColorBlendMode(
+                colorBlendMode=ColorBlendModes.HIGHLIGHT,
+                reference=ReferenceValue(value="this#that"),
             )
         )
         == """{
@@ -1206,6 +1285,12 @@ def test_check_classes_with_references_HeightReference():
                 heightReference=HeightReferences.NONE, reference="this#that"
             )
         )
+        == str(
+            HeightReference(
+                heightReference=HeightReferences.NONE,
+                reference=ReferenceValue(value="this#that"),
+            )
+        )
         == """{
     "heightReference": "NONE",
     "reference": "this#that"
@@ -1216,6 +1301,9 @@ def test_check_classes_with_references_HeightReference():
 def test_check_classes_with_references_EyeOffset():
     assert (
         str(EyeOffset(cartesian=[0, 0, 0], reference="this#that"))
+        == str(
+            EyeOffset(cartesian=[0, 0, 0], reference=ReferenceValue(value="this#that"))
+        )
         == """{
     "cartesian": [
         0.0,
@@ -1245,9 +1333,11 @@ def test_check_classes_with_references_BoxDimensions():
         cartesian=Cartesian3Value(values=[0, 0, 1]), reference="this#that"
     )
     b2 = BoxDimensions(cartesian=[0, 0, 1], reference="this#that")
+    b3 = BoxDimensions(cartesian=[0, 0, 1], reference=ReferenceValue(value="this#that"))
     assert (
         str(b1)
         == str(b2)
+        == str(b3)
         == """{
     "cartesian": [
         0.0,
@@ -1269,6 +1359,14 @@ def test_check_classes_with_references_DistanceDisplayCondition():
                 reference="this#that",
             )
         )
+        == str(
+            DistanceDisplayCondition(
+                distanceDisplayCondition=DistanceDisplayConditionValue(
+                    values=[0, 1, 2]
+                ),
+                reference=ReferenceValue(value="this#that"),
+            )
+        )
         == """{
     "distanceDisplayCondition": [
         0.0,
@@ -1287,6 +1385,12 @@ def test_check_classes_with_references_ClassificationType():
                 classificationType=ClassificationTypes.BOTH, reference="this#that"
             )
         )
+        == str(
+            ClassificationType(
+                classificationType=ClassificationTypes.BOTH,
+                reference=ReferenceValue(value="this#that"),
+            )
+        )
         == """{
     "classificationType": "BOTH",
     "reference": "this#that"
@@ -1297,6 +1401,12 @@ def test_check_classes_with_references_ClassificationType():
 def test_check_classes_with_references_ShadowMode():
     assert (
         str(ShadowMode(shadowMode=ShadowModes.CAST_ONLY, reference="this#that"))
+        == str(
+            ShadowMode(
+                shadowMode=ShadowModes.CAST_ONLY,
+                reference=ReferenceValue(value="this#that"),
+            )
+        )
         == """{
     "shadowMode": "CAST_ONLY",
     "reference": "this#that"
@@ -1657,3 +1767,34 @@ def test_position_list_of_lists_with_bad_references():
 def test_check_increasing_time():
     with pytest.raises(TypeError):
         Cartesian3Value(values=[0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0])
+
+
+def test_packet_billboard():
+    expected_result = """{
+    "image": "file://image.png",
+    "eyeOffset": {
+        "cartesian": [
+            1.0,
+            2.0,
+            3.0
+        ]
+    }
+}"""
+    packet = Billboard(
+        image="file://image.png",
+        eyeOffset=EyeOffset(cartesian=Cartesian3Value(values=[1, 2, 3])),
+    )
+    assert str(packet) == expected_result
+    packet = Billboard(image="file://image.png", eyeOffset=[1, 2, 3])
+    assert str(packet) == expected_result
+
+
+@pytest.mark.xfail(reason="Reference value needs further clarifying")
+def test_uri_ref():
+    expected_result = """{
+    "uri": "file://image.png",
+    "reference": "this#that"
+}"""
+    uri = Uri(uri="file://image.png", reference="this#that")
+    uri1 = Uri(uri="file://image.png", reference=ReferenceValue(value="this#that"))
+    assert str(uri) == str(uri1) == expected_result
