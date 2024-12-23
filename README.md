@@ -1,6 +1,6 @@
 # czml3
-![pypi](https://img.shields.io/pypi/v/czml3)
-![conda](https://img.shields.io/conda/vn/conda-forge/czml3?label=conda)
+[![pypi](https://img.shields.io/pypi/v/czml3)](https://pypi.org/project/czml3/)
+[![conda](https://img.shields.io/conda/vn/conda-forge/czml3?label=conda)](https://anaconda.org/conda-forge/czml3)
 ![Python](https://img.shields.io/pypi/pyversions/czml3)
 [![codecov](https://codecov.io/gh/Stoops-ML/czml3/graph/badge.svg?token=EF8SIL2JBV)](https://codecov.io/gh/Stoops-ML/czml3)
 ![pypi-downloads](https://img.shields.io/pepy/dt/czml3?label=pypi%20downloads)
