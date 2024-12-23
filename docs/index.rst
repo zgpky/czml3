@@ -10,6 +10,10 @@ From the official `CZML Guide <https://github.com/AnalyticalGraphicsInc/czml-wri
 
  | CZML is a JSON format for describing a time-dynamic graphical scene, primarily for display in a web browser running Cesium. It describes lines, points, billboards, models, and other graphical primitives, and specifies how they change with time.
 
+czml3 aims to make the process of writing CZML files in Python easy by:
+* Type checking properties
+* Cooercion of data to their required format
+* Creating minimal CZML files
 
 .. toctree::
    :maxdepth: 2

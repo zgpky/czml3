@@ -1,3 +1,9 @@
+# v2.2.2
+
+* Update license
+* Update docs
+* Add depreciation warning to `CZMLWidget()`
+
 # v2.2.1
 
 * Expand preamble checking in Document()

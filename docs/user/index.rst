@@ -6,3 +6,4 @@ User Manual
    installation
    features
    examples
+   contributing

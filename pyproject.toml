@@ -70,12 +70,8 @@ description = "Python 3 library to write CZML"
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["czml", "cesium"]
-license = {text = "MIT"}
+license = {file = "LICENSE.txt"}
 classifiers = [
-    "Intended Audience :: Education",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -83,6 +79,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
@@ -107,10 +106,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Stoops-ML/czml3"
 Repository = "https://github.com/Stoops-ML/czml3"
-Issues = "https://github.com/Stoops-ML/czml3/issues"
-Changelog = "https://github.com/Stoops-ML/czml3/blob/main/CHANGELOG.md"
+Documentation = "https://czml3.readthedocs.io/en"
 
 [tool.setuptools.dynamic]
 version = {attr = "czml3.__version__"}

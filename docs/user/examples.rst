@@ -19,7 +19,7 @@ A CZML document is a list of ``packets``, which have several properties. Recreat
         SolidColorMaterial,
     )
     packet_box = Packet(
-        id="my_id",  # fixing id here to ensure test passes
+        id="my_id",
         position=Position(cartographicDegrees=[-114.0, 40.0, 300000.0]),
         box=Box(
             dimensions=BoxDimensions(
