@@ -107,10 +107,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Stoops-ML/czml3"
 Repository = "https://github.com/Stoops-ML/czml3"
-Issues = "https://github.com/Stoops-ML/czml3/issues"
-Changelog = "https://github.com/Stoops-ML/czml3/blob/main/CHANGELOG.md"
+Documentation = "https://czml3.readthedocs.io/en"
 
 [tool.setuptools.dynamic]
 version = {attr = "czml3.__version__"}
