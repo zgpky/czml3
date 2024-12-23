@@ -17,7 +17,6 @@ Missing CZML Properties
 * `BackgroundPadding <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/BackgroundPadding>`_
 * `CartographicRectangleRadiansValue <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicRectangleRadiansValue>`_
 * `CartographicRectangleDegreesValue <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CartographicRectangleDegreesValue>`_
-* `Polyline <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Polyline>`_
 * `CustomProperties <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CustomProperties>`_
 * `CustomProperty <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CustomProperty>`_
 * `PolylineVolume <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/PolylineVolume>`_
@@ -30,6 +29,7 @@ CZML Properties With Missing Inputs
 * `Billboard <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Billboard>`_
 * `Label <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Label>`_
 * `Rectangle <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Rectangle>`_
+* `Polyline <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Polyline>`_
 * `InterpolatableProperty <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/InterpolatableProperty>`_
 
 Broken Validations
