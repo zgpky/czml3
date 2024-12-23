@@ -14,7 +14,7 @@ From the official [CZML Guide](https://github.com/AnalyticalGraphicsInc/czml-wri
 czml3 aims to make the process of writing CZML files in Python easy by:
 - Type checking properties
 - Cooercion of data to their required format
-- Creating minimal CZML files that only contains fields with information
+- Creating minimal CZML files
 
 ## Insallation
 You can install czml3 using pip:
@@ -42,7 +42,7 @@ from czml3.properties import (
 )
 from czml3.types import Cartesian3Value
 packet_box = Packet(
-    id="my_id",  # fixing id here to ensure test passes
+    id="my_id",
     position=Position(cartographicDegrees=[-114.0, 40.0, 300000.0]),
     box=Box(
         dimensions=BoxDimensions(
@@ -116,6 +116,6 @@ print(Position(cartographicDegrees=np.array([-114, 40, 300000], dtype=int)))
 ```
 
 ## Contributing
-You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) and validations that we still did not implement, which can be found [here](MissingProperties.md).
+You want to contribute? Awesome! There are lots of [CZML properties](https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Packet) and validations that we still did not implement, which can be found [here](https://czml3.readthedocs.io/en/latest/user/contributing.html).
 
 All ideas welcome!
