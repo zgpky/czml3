@@ -1151,7 +1151,7 @@ class BoxDimensions(BaseCZMLObject, Interpolatable, Deletable):
         return r
 
 
-class Rectangle(BaseCZMLObject, Interpolatable, Deletable):
+class Rectangle(BaseCZMLObject):
     """A cartographic rectangle, which conforms to the curvature of the globe and can be placed on the surface or at altitude and can optionally be extruded into a volume.
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Rectangle>`__ for it's definition."""
