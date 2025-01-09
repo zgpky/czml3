@@ -95,7 +95,7 @@ def check_reference(r):
         )
 
 
-def format_datetime_like(dt_object):
+def format_datetime_like(dt_object: None | str | dt.datetime) -> str | None:
     if dt_object is None:
         return dt_object
 
