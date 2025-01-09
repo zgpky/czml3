@@ -370,6 +370,10 @@ def test_check_reference():
 
 def test_format_datetime_like():
     assert format_datetime_like(None) is None
+    assert format_datetime_like("2019-01-01T12:00:00.000000Z") == "2019-01-01T12:00:00.000000Z"
+    assert format_datetime_like(dt.datetime(2019, 1, 1, 12)) == "2019-01-01T12:00:00.000000Z"
+    with pytest.raises(ValueError):
+        format_datetime_like("test")
 
 
 def test_reference_list():
