@@ -56,8 +56,7 @@ from .types import (
 class Material(BaseCZMLObject):
     """A definition of how a surface is colored or shaded.
 
-    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Material>`__ for it's definition.
-    """
+    See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Material>`__ for it's definition."""
 
     solidColor: None | SolidColorMaterial | str | TimeIntervalCollection = Field(
         default=None
