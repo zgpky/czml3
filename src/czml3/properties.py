@@ -949,7 +949,7 @@ class PositionListOfLists(BaseCZMLObject, Deletable):
         return r
 
 
-class PositionList(BaseCZMLObject, Interpolatable, Deletable):
+class PositionList(BaseCZMLObject, Deletable):
     """A list of positions.
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/PositionList>`__ for it's definition."""
