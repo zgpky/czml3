@@ -1122,7 +1122,7 @@ class Box(BaseCZMLObject):
     """The display condition specifying the distance from the camera at which this box will be displayed. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/DistanceDisplayCondition>`__ for it's definition."""
 
 
-class BoxDimensions(BaseCZMLObject, Interpolatable):
+class BoxDimensions(BaseCZMLObject, Interpolatable, Deletable):
     """The width, depth, and height of a box.
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/BoxDimensions>`__ for it's definition."""
