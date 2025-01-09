@@ -111,7 +111,7 @@ def format_datetime_like(dt_object: None | str | dt.datetime) -> str | None:
         return dt_object.strftime(ISO8601_FORMAT_Z)
 
     else:
-        return dt_object.strftime(ISO8601_FORMAT_Z)
+        raise TypeError(f"Invalid datetime format: {dt_object}")
 
 
 class FontValue(BaseCZMLObject):
