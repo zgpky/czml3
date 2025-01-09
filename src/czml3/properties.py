@@ -5,7 +5,6 @@ from typing import Any
 from urllib.parse import urlparse
 
 from pydantic import (
-    BaseModel,
     Field,
     field_validator,
     model_serializer,
@@ -52,19 +51,6 @@ from .types import (
     UnitQuaternionValue,
     format_datetime_like,
 )
-
-
-class HasAlignment(BaseModel):
-    """A property that can be horizontally or vertically aligned."""
-
-    horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
-        default=None
-    )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
-    verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
-        default=None
-    )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
 
 class Material(BaseCZMLObject):
@@ -458,7 +444,7 @@ class ViewFrom(BaseCZMLObject, Interpolatable, Deletable):
         return r
 
 
-class Billboard(BaseCZMLObject, HasAlignment):
+class Billboard(BaseCZMLObject):
     """A billboard, or viewport-aligned image. The billboard is positioned in the scene by the position property. A billboard is sometimes called a marker.
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Billboard>`__ for it's definition."""
@@ -477,6 +463,14 @@ class Billboard(BaseCZMLObject, HasAlignment):
     """The eye offset of the billboard, which is the offset in eye coordinates at which to place the billboard relative to the position property. Eye coordinates are a left-handed coordinate system where the X-axis points toward the viewer's right, the Y-axis points up, and the Z-axis points into the screen. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/EyeOffset>`__ for it's definition."""
     color: None | Color | str | TimeIntervalCollection = Field(default=None)
     """The color of the billboard. This color value is multiplied with the values of the billboard's image to produce the final color. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Color>`__ for it's definition."""
+    horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
+        default=None
+    )
+    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
+        default=None
+    )
+    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
     @field_validator("eyeOffset")
     @classmethod
@@ -1457,7 +1451,7 @@ class NearFarScalar(BaseCZMLObject, Interpolatable, Deletable):
         return r
 
 
-class Label(BaseCZMLObject, HasAlignment):
+class Label(BaseCZMLObject):
     """A string of text.
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Label>`__ for it's definition."""
@@ -1488,6 +1482,14 @@ class Label(BaseCZMLObject, HasAlignment):
     """The offset, in viewport pixels, of the label origin from the position. A pixel offset is the number of pixels up and to the right to place the label, relative to the `position`. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/PixelOffset>`__ for it's definition."""
     eyeOffset: None | EyeOffset | TimeIntervalCollection = Field(default=None)
     """The eye offset of the label, which is the offset in eye coordinates at which to place the label relative to the position property. Eye coordinates are a left-handed coordinate system where the X-axis points toward the viewer's right, the Y-axis points up, and the Z-axis points into the screen. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/EyeOffset>`__ for it's definition."""
+    horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
+        default=None
+    )
+    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
+        default=None
+    )
+    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
 
 class Orientation(BaseCZMLObject, Interpolatable, Deletable):
