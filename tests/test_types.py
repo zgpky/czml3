@@ -380,6 +380,8 @@ def test_format_datetime_like():
     )
     with pytest.raises(ValueError):
         format_datetime_like("test")
+    with pytest.raises(TypeError):
+        format_datetime_like(1)  # type: ignore[arg-type]
 
 
 def test_reference_list():
