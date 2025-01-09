@@ -95,9 +95,9 @@ def check_reference(r):
         )
 
 
-def format_datetime_like(dt_object):
+def format_datetime_like(dt_object: None | str | dt.datetime) -> str | None:
     if dt_object is None:
-        result = dt_object
+        return dt_object
 
     elif isinstance(dt_object, str):
         try:
@@ -105,15 +105,13 @@ def format_datetime_like(dt_object):
         except Exception:
             raise
         else:
-            result = dt_object
+            return dt_object
 
     elif isinstance(dt_object, dt.datetime):
-        result = dt_object.strftime(ISO8601_FORMAT_Z)
+        return dt_object.strftime(ISO8601_FORMAT_Z)
 
     else:
-        result = dt_object.strftime(ISO8601_FORMAT_Z)
-
-    return result
+        raise TypeError(f"Invalid datetime format: {dt_object}")
 
 
 class FontValue(BaseCZMLObject):

@@ -356,12 +356,12 @@ def test_outline_material_colors():
 
 def test_positionlist_epoch():
     expected_result = """{
-    "epoch": "2019-06-11T12:26:58.000000Z",
     "cartographicDegrees": [
         200.0,
         100.0,
         30.0
-    ]
+    ],
+    "epoch": "2019-06-11T12:26:58.000000Z"
 }"""
     p = PositionList(
         epoch=dt.datetime(2019, 6, 11, 12, 26, 58, tzinfo=dt.timezone.utc),
