@@ -16,6 +16,7 @@ czml3 aims to make the process of writing CZML files in Python easy by:
 * Cooercion of data to their required format
 * Forbidding unrecognised properties
 * Creating minimal CZML files
+* Performant JSON serialisation
 
 .. toctree::
    :maxdepth: 2
