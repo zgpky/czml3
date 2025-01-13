@@ -1,7 +1,7 @@
 Features
 ========
 
-czml3 is built upon `pydantic <https://docs.pydantic.dev/latest/>`_ and leverages a lot of it's capabilities to achieve this goal.
+czml3 is built upon `pydantic <https://docs.pydantic.dev/latest/>`_ and leverages a lot of it's capabilities to achieve it's goal: making the process of writing CZML files in Python easy.
 
 Type Checking
 -------------
@@ -11,7 +11,7 @@ Inputs to classes are type checked, which ensures that the data is in the correc
 Cooercion of Data
 -----------------
 
-Inputted data to classes that is not of the specified type is `coerced to their right type <https://docs.pydantic.dev/latest/why/#json-schema>`_. See Example 2 in  :ref:`examples-label`.
+Inputted data that is not of the specified type in the class is `coerced to their right type <https://docs.pydantic.dev/latest/why/#json-schema>`_. See Example 2 in  :ref:`examples-label`.
 
 Forbid Unrecognised Properties
 ------------------------------
