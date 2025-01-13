@@ -6,12 +6,17 @@ The goal of czml3 is to make the process of writing CZML files in Python easy. T
 Type Checking
 -------------
 
-czml3 is built using Pydantic. Therefore, all classes enforces type checking on the inputs. This ensures that the data is in the correct format before it is written to the CZML file.
+All classes enforces type checking on the inputs. This ensures that the data is in the correct format before it is written to the CZML file.
 
 Cooercion of Data
 -----------------
 
-Again, czml3 is build using Pydantic. Therefore, czml3 is able to `coerce data to their right type <https://docs.pydantic.dev/latest/why/#json-schema>`_. See Example 2 in  :ref:`examples-label`.
+czml3 `coerces data to their right type <https://docs.pydantic.dev/latest/why/#json-schema>`_. See Example 2 in  :ref:`examples-label`.
+
+Forbid Unrecognised Properties
+------------------------------
+
+czml3 raises an error if a model (class) receives an unrecognised input.
 
 Minimal CZML File Creation
 --------------------------
