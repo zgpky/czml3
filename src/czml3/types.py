@@ -18,7 +18,7 @@ from .constants import ISO8601_FORMAT_Z
 if sys.version_info[1] >= 11:
     from typing import Self
 else:
-    from typing_extensions import Self
+    from typing_extensions import Self  # pragma: no cover
 
 TYPE_MAPPING = {bool: "boolean"}
 

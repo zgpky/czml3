@@ -5,7 +5,7 @@ from pydantic import BaseModel, ConfigDict, model_validator
 if sys.version_info[1] >= 11:
     from typing import Self
 else:
-    from typing_extensions import Self
+    from typing_extensions import Self  # pragma: no cover
 
 NON_DELETE_PROPERTIES = ["id", "delete"]
 
