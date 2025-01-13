@@ -1819,7 +1819,7 @@ def test_forbid_extras():
         PositionList(
             cartographicDegrees=CartographicDegreesListValue(values=[20, 30, 10]),
             delete=True,
-            a=1,
+            a=1,  # type: ignore[call-arg]
         )
 
 
