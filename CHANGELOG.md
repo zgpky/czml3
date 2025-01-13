@@ -1,3 +1,12 @@
+# v2.3.0
+
+* Forbid extra attributes to all models
+
+# v2.2.3
+
+* Correct inheritance of `PositionList`, `BoxDimensions()`, and `Rectangle()`
+* Remove `HasAlignment()`
+
 # v2.2.2
 
 * Update license
