@@ -618,21 +618,32 @@ def test_material_checkerboard():
 
 
 def test_position_has_delete():
-    pos = Position(delete=True, cartesian=[])
-
+    expected_result = """{
+    "delete": true
+}"""
+    pos = Position(delete=True, cartesian=[0, 0, 0])
     assert pos.delete
+    assert str(pos) == expected_result
 
 
 def test_position_list_has_delete():
-    pos = PositionList(delete=True, cartesian=[])
-
+    expected_result = """{
+    "delete": true
+}"""
+    pos = PositionList(delete=True, cartesian=[0, 0, 0])
     assert pos.delete
+    assert str(pos) == expected_result
 
 
 def test_position_list_of_lists_has_delete():
-    pos = PositionListOfLists(delete=True, cartesian=[])
-
+    expected_result = """{
+    "delete": true
+}"""
+    pos = PositionListOfLists(
+        delete=True, cartesian=[[20.0, 20.0, 0.0], [10.0, 10.0, 0.0]]
+    )
     assert pos.delete
+    assert str(pos) == expected_result
 
 
 def test_position_no_values_raises_error():
@@ -787,9 +798,12 @@ def test_viewfrom_cartesian():
 
 
 def test_viewfrom_has_delete():
-    v = ViewFrom(delete=True, cartesian=[14.0, 12.0])
-
+    expected_result = """{
+    "delete": true
+}"""
+    v = ViewFrom(delete=True, cartesian=[14.0, 12.0, 1.0])
     assert v.delete
+    assert str(v) == expected_result
 
 
 def test_viewfrom_no_values_raises_error():
@@ -1787,6 +1801,26 @@ def test_packet_billboard():
     assert str(packet) == expected_result
     packet = Billboard(image="file://image.png", eyeOffset=[1, 2, 3])
     assert str(packet) == expected_result
+
+
+def test_delete():
+    expected_result = """{
+    "delete": true
+}"""
+    p = PositionList(
+        cartographicDegrees=CartographicDegreesListValue(values=[20, 30, 10]),
+        delete=True,
+    )
+    assert str(p) == expected_result
+
+
+def test_forbid_extras():
+    with pytest.raises(ValidationError):
+        PositionList(
+            cartographicDegrees=CartographicDegreesListValue(values=[20, 30, 10]),
+            delete=True,
+            a=1,  # type: ignore[call-arg]
+        )
 
 
 # @pytest.mark.xfail(reason="Reference value needs further clarifying")
