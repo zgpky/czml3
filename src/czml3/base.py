@@ -1,6 +1,11 @@
-from typing import Self
+import sys
 
 from pydantic import BaseModel, ConfigDict, model_validator
+
+if sys.version_info[1] >= 11:
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 NON_DELETE_PROPERTIES = ["id", "delete"]
 
