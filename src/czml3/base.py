@@ -1,26 +1,20 @@
-from typing import Any
+from typing import Self
 
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, ConfigDict, model_validator
 
 NON_DELETE_PROPERTIES = ["id", "delete"]
 
 
 class BaseCZMLObject(BaseModel):
-    @model_validator(mode="before")
-    @classmethod
-    def validate_model_before(cls, data: Any) -> Any:
-        if (
-            data is not None
-            and isinstance(data, dict)
-            and "delete" in data
-            and data["delete"]
-        ):
-            return {
-                "delete": True,
-                "id": data.get("id"),
-                **{k: None for k in data if k not in NON_DELETE_PROPERTIES},
-            }
-        return data
+    model_config = ConfigDict(extra="forbid")
+
+    @model_validator(mode="after")
+    def validate_model_before(self) -> Self:
+        if hasattr(self, "delete") and self.delete:
+            for k in self.model_fields:
+                if k not in NON_DELETE_PROPERTIES and getattr(self, k) is not None:
+                    setattr(self, k, None)
+        return self
 
     def __str__(self) -> str:
         return self.to_json()
