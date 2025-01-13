@@ -9,7 +9,7 @@ class BaseCZMLObject(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     @model_validator(mode="after")
-    def validate_model_before(self) -> Self:
+    def check_delete(self) -> Self:
         if hasattr(self, "delete") and self.delete:
             for k in self.model_fields:
                 if k not in NON_DELETE_PROPERTIES and getattr(self, k) is not None:
