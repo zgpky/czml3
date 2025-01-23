@@ -465,11 +465,11 @@ class Billboard(BaseCZMLObject):
     horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
     verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
     @field_validator("eyeOffset")
     @classmethod
@@ -1484,11 +1484,11 @@ class Label(BaseCZMLObject):
     horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
     verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
 
 class Orientation(BaseCZMLObject, Interpolatable, Deletable):
