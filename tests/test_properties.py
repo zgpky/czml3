@@ -1803,6 +1803,76 @@ def test_packet_billboard():
     assert str(packet) == expected_result
 
 
+def test_packet_billboard_further():
+    expected_result = """{
+    "image": "file://image.png",
+    "eyeOffset": {
+        "cartesian": [
+            1.0,
+            2.0,
+            3.0
+        ]
+    },
+    "rotation": 0.1,
+    "sizeInMeters": true,
+    "width": 10.0,
+    "height": 10.0,
+    "scaleByDistance": {
+        "nearFarScalar": [
+            150.0,
+            2.0,
+            15000000.0,
+            0.5
+        ]
+    },
+    "translucencyByDistance": {
+        "nearFarScalar": [
+            250.0,
+            2.0,
+            15000000.0,
+            0.5
+        ]
+    },
+    "pixelOffsetScaleByDistance": {
+        "nearFarScalar": [
+            350.0,
+            2.0,
+            15000000.0,
+            0.5
+        ]
+    },
+    "distanceDisplayCondition": {
+        "distanceDisplayCondition": [
+            14.0,
+            81.0
+        ]
+    },
+    "disableDepthTestDistance": 2.0
+}"""
+    packet = Billboard(
+        image="file://image.png",
+        eyeOffset=EyeOffset(cartesian=Cartesian3Value(values=[1, 2, 3])),
+        rotation=0.1,
+        sizeInMeters=True,
+        width=10,
+        height=10,
+        scaleByDistance=NearFarScalar(
+            nearFarScalar=NearFarScalarValue(values=[150, 2.0, 15000000, 0.5])
+        ),
+        translucencyByDistance=NearFarScalar(
+            nearFarScalar=NearFarScalarValue(values=[250, 2.0, 15000000, 0.5])
+        ),
+        pixelOffsetScaleByDistance=NearFarScalar(
+            nearFarScalar=NearFarScalarValue(values=[350, 2.0, 15000000, 0.5])
+        ),
+        disableDepthTestDistance=2,
+        distanceDisplayCondition=DistanceDisplayCondition(
+            distanceDisplayCondition=DistanceDisplayConditionValue(values=[14, 81])
+        ),
+    )
+    assert str(packet) == expected_result
+
+
 def test_delete():
     expected_result = """{
     "delete": true

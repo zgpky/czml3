@@ -448,10 +448,10 @@ class Billboard(BaseCZMLObject):
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Billboard>`__ for it's definition."""
 
-    image: str | Uri | TimeIntervalCollection = Field()
-    """The URI of the image displayed on the billboard. For broadest client compatibility, the URI should be accessible via Cross-Origin Resource Sharing (CORS). The URI may also be a data URI. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Uri>`__ for it's definition."""
     show: None | bool | TimeIntervalCollection = Field(default=None)
     """Whether or not the billboard is shown."""
+    image: str | Uri | TimeIntervalCollection = Field()
+    """The URI of the image displayed on the billboard. For broadest client compatibility, the URI should be accessible via Cross-Origin Resource Sharing (CORS). The URI may also be a data URI. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Uri>`__ for it's definition."""
     scale: None | float | TimeIntervalCollection = Field(default=None)
     """The scale of the billboard. The scale is multiplied with the pixel size of the billboard's image. For example, if the scale is 2.0, the billboard will be rendered with twice the number of pixels, in each direction, of the image."""
     pixelOffset: None | list[float] | TimeIntervalCollection = Field(default=None)
@@ -460,16 +460,46 @@ class Billboard(BaseCZMLObject):
         default=None
     )
     """The eye offset of the billboard, which is the offset in eye coordinates at which to place the billboard relative to the position property. Eye coordinates are a left-handed coordinate system where the X-axis points toward the viewer's right, the Y-axis points up, and the Z-axis points into the screen. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/EyeOffset>`__ for it's definition."""
-    color: None | Color | str | TimeIntervalCollection = Field(default=None)
-    """The color of the billboard. This color value is multiplied with the values of the billboard's image to produce the final color. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Color>`__ for it's definition."""
     horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
     verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
+    heightReference: None | HeightReference | TimeIntervalCollection = Field(
+        default=None
+    )
+    """The height reference of the billboard, which indicates if height is relative to terrain or not. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HeightReference>`__ for it's definition."""
+    color: None | Color | str | TimeIntervalCollection = Field(default=None)
+    """The color of the billboard. This color value is multiplied with the values of the billboard's image to produce the final color. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Color>`__ for it's definition."""
+    rotation: None | float | TimeIntervalCollection = Field(default=None)
+    """The rotation of the billboard, in radians, counter-clockwise from the alignedAxis."""
+    sizeInMeters: None | bool | TimeIntervalCollection = Field(default=None)
+    """Whether this billboard's size (width and height) should be measured in meters, otherwise size is measured in pixels."""
+    width: None | float | TimeIntervalCollection = Field(default=None)
+    """The width of the billboard, in pixels (or meters, if `sizeInMeters` is true). By default, the native width of the image is used."""
+    height: None | float | TimeIntervalCollection = Field(default=None)
+    """The height of the billboard, in pixels (or meters, if `sizeInMeters` is true). By default, the native height of the image is used."""
+    scaleByDistance: None | NearFarScalar | TimeIntervalCollection = Field(default=None)
+    """How the point's scale should change based on the point's distance from the camera. This scalar value will be multiplied by `pixelSize`. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/NearFarScalar>`__ for it's definition."""
+    translucencyByDistance: None | NearFarScalar | TimeIntervalCollection = Field(
+        default=None
+    )
+    """How the billboard's translucency should change based on the billboard's distance from the camera. This scalar value should range from 0 to 1. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/NearFarScalar>`__ for it's definition."""
+    pixelOffsetScaleByDistance: None | NearFarScalar | TimeIntervalCollection = Field(
+        default=None
+    )
+    """How the billboard's pixel offset should change based on the billboard's distance from the camera. This scalar value will be multiplied by `pixelOffset`. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/NearFarScalar>`__ for it's definition."""
+    distanceDisplayCondition: (
+        None | DistanceDisplayCondition | TimeIntervalCollection
+    ) = Field(default=None)
+    """How the billboard's scale should change based on the billboard's distance from the camera. This scalar value will be multiplied by scale."""
+    disableDepthTestDistance: None | float | TimeIntervalCollection = Field(
+        default=None
+    )
+    """The distance from the camera at which to disable the depth test. This can be used to prevent clipping against terrain, for example. When set to zero, the depth test is always applied. When set to Infinity, the depth test is never applied."""
 
     @field_validator("eyeOffset")
     @classmethod
@@ -1484,11 +1514,11 @@ class Label(BaseCZMLObject):
     horizontalOrigin: None | HorizontalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/HorizontalOrigin>`__ for it's definition."""
     verticalOrigin: None | VerticalOrigins | TimeIntervalCollection = Field(
         default=None
     )
-    """ See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
+    """See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VerticalOrigin>`__ for it's definition."""
 
 
 class Orientation(BaseCZMLObject, Interpolatable, Deletable):
