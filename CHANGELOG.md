@@ -1,3 +1,11 @@
+# v2.3.3
+
+* Fix `check_values()` for `num_points` less than or greater than 3.
+
+# v2.3.2
+
+* Remove w3lib dependency
+
 # v2.3.0
 
 * Forbid extra attributes to all models
