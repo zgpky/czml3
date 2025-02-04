@@ -442,7 +442,7 @@ class ViewFrom(BaseCZMLObject, Interpolatable, Deletable):
         if isinstance(r, str):
             return ReferenceValue(value=r)
         return r
-    
+
     @model_validator(mode="after")
     def checks(self):
         if self.delete:

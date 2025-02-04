@@ -1509,7 +1509,7 @@ def test_position_bad_multipleTypes():
         Position(cartographicDegrees=[0],reference=ReferenceValue(value="1#this"))
     with pytest.raises(TypeError):
         Position(cartesianVelocity=[0],reference=ReferenceValue(value="1#this"))
-    
+
     with pytest.raises(TypeError):
         Position(cartesian=[0],reference="1#this")
     with pytest.raises(TypeError):
