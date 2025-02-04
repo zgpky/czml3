@@ -512,15 +512,10 @@ def test_rgba_with_time():
 ]"""
     )
 
+
 def test_check_values():
     assert (
-        str(Cartesian2Value( values=
-                [
-                    1.0, 0.5, 0.6,
-                    2.0, 0.7, 0.8
-                ]
-            )
-        )
+        str(Cartesian2Value(values=[1.0, 0.5, 0.6, 2.0, 0.7, 0.8]))
         == """{
     "cartesian2": [
         1.0,
@@ -534,10 +529,17 @@ def test_check_values():
     )
 
     assert (
-        str(Cartesian3Value( values=
-                [
-                    1.0, 306168.0, -5239807.0, 3611567.0,
-                    2.0, 306168.0, -5239807.0, 3611567.0
+        str(
+            Cartesian3Value(
+                values=[
+                    1.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    2.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
                 ]
             )
         )
@@ -554,10 +556,23 @@ def test_check_values():
     )
 
     assert (
-        str(Cartesian3VelocityValue( values=
-                [
-                    1.0, 306168.0, -5239807.0, 3611567.0, 1.0, 2.0, 3.0,
-                    2.0, 306168.0, -5239807.0, 3611567.0, 1.0, 2.0, 3.0
+        str(
+            Cartesian3VelocityValue(
+                values=[
+                    1.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    1.0,
+                    2.0,
+                    3.0,
+                    2.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    1.0,
+                    2.0,
+                    3.0,
                 ]
             )
         )
@@ -582,10 +597,23 @@ def test_check_values():
     # Test for when time values are not increasing but data is sized properly
     with pytest.raises(TypeError) as e:
         assert (
-            str(Cartesian3VelocityValue( values=
-                    [
-                        1.0, 306168.0, -5239807.0, 3611567.0, 1.0, 2.0, 3.0,
-                        0.0, 306168.0, -5239807.0, 3611567.0, 1.0, 2.0, 3.0
+            str(
+                Cartesian3VelocityValue(
+                    values=[
+                        1.0,
+                        306168.0,
+                        -5239807.0,
+                        3611567.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        0.0,
+                        306168.0,
+                        -5239807.0,
+                        3611567.0,
+                        1.0,
+                        2.0,
+                        3.0,
                     ]
                 )
             )

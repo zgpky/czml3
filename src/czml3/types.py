@@ -82,7 +82,9 @@ def check_values(num_points: int, values: list[Any]):
         raise TypeError(
             f"Input values must have either {num_points} or N * {num_points + 1} values, where N is the number of time-tagged samples."
         )
-    if len(values) % (num_points + 1) == 0 and np.any(np.diff(values[::(num_points + 1)]) <= 0):
+    if len(values) % (num_points + 1) == 0 and np.any(
+        np.diff(values[:: (num_points + 1)]) <= 0
+    ):
         raise TypeError("Time values must be increasing.")
 
 
