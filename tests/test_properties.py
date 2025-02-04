@@ -767,6 +767,16 @@ def test_position_reference():
     assert str(pos) == expected_result
 
 
+def test_position_reference_only():
+    expected_result = """{
+    "reference": "this#satellite"
+}"""
+    pos = Position(reference="this#satellite")
+    assert str(pos) == expected_result
+    pos = Position(reference=ReferenceValue(value="this#satellite"))
+    assert str(pos) == expected_result
+
+
 def test_viewfrom_reference():
     expected_result = """{
     "cartesian": [
