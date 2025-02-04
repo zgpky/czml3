@@ -6,6 +6,7 @@ from pydantic import ValidationError
 from czml3.types import (
     Cartesian2Value,
     Cartesian3Value,
+    Cartesian3VelocityValue,
     CartographicDegreesListValue,
     CartographicDegreesValue,
     CartographicRadiansListValue,
@@ -510,3 +511,127 @@ def test_rgba_with_time():
     0.5
 ]"""
     )
+
+
+def test_check_values():
+    assert (
+        str(Cartesian2Value(values=[1.0, 0.5, 0.6, 2.0, 0.7, 0.8]))
+        == """{
+    "cartesian2": [
+        1.0,
+        0.5,
+        0.6,
+        2.0,
+        0.7,
+        0.8
+    ]
+}"""
+    )
+
+    assert (
+        str(
+            Cartesian3Value(
+                values=[
+                    1.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    2.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                ]
+            )
+        )
+        == """[
+    1.0,
+    306168.0,
+    -5239807.0,
+    3611567.0,
+    2.0,
+    306168.0,
+    -5239807.0,
+    3611567.0
+]"""
+    )
+
+    assert (
+        str(
+            Cartesian3VelocityValue(
+                values=[
+                    1.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    1.0,
+                    2.0,
+                    3.0,
+                    2.0,
+                    306168.0,
+                    -5239807.0,
+                    3611567.0,
+                    1.0,
+                    2.0,
+                    3.0,
+                ]
+            )
+        )
+        == """[
+    1.0,
+    306168.0,
+    -5239807.0,
+    3611567.0,
+    1.0,
+    2.0,
+    3.0,
+    2.0,
+    306168.0,
+    -5239807.0,
+    3611567.0,
+    1.0,
+    2.0,
+    3.0
+]"""
+    )
+
+    # Test for when time values are not increasing but data is sized properly
+    with pytest.raises(TypeError) as e:
+        assert (
+            str(
+                Cartesian3VelocityValue(
+                    values=[
+                        1.0,
+                        306168.0,
+                        -5239807.0,
+                        3611567.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        0.0,
+                        306168.0,
+                        -5239807.0,
+                        3611567.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                    ]
+                )
+            )
+            == """[
+    1.0,
+    306168.0,
+    -5239807.0,
+    3611567.0,
+    1.0,
+    2.0,
+    3.0,
+    0.0,
+    306168.0,
+    -5239807.0,
+    3611567.0,
+    1.0,
+    2.0,
+    3.0
+]"""
+        )
+    assert str(e.value) == "Time values must be increasing."
