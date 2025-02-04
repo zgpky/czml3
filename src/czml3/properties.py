@@ -422,7 +422,9 @@ class ViewFrom(BaseCZMLObject, Interpolatable, Deletable):
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ViewFrom>`__ for it's definition."""
 
-    cartesian: None | Cartesian3Value | list[float] | TimeIntervalCollection = Field(default=None)
+    cartesian: None | Cartesian3Value | list[float] | TimeIntervalCollection = Field(
+        default=None
+    )
     """The offset specified as a three-dimensional Cartesian value [X, Y, Z].  See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3Value>`__ for it's definition."""
     reference: None | ReferenceValue | str | TimeIntervalCollection = Field(
         default=None
@@ -448,7 +450,9 @@ class ViewFrom(BaseCZMLObject, Interpolatable, Deletable):
         if self.delete:
             return self
         if self.cartesian is None and self.reference is None:
-            raise ValueError("ViewFrom must have either 'cartesian' or 'reference' specified")
+            raise ValueError(
+                "ViewFrom must have either 'cartesian' or 'reference' specified"
+            )
         return self
 
 

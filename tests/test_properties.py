@@ -756,9 +756,7 @@ def test_position_reference():
 }"""
     pos = Position(reference="this#satellite")
     assert str(pos) == expected_result
-    pos = Position(
-        reference=ReferenceValue(value="this#satellite")
-    )
+    pos = Position(reference=ReferenceValue(value="this#satellite"))
     assert str(pos) == expected_result
 
 
@@ -768,9 +766,7 @@ def test_viewfrom_reference():
 }"""
     v = ViewFrom(reference="this#satellite")
     assert str(v) == expected_result
-    v = ViewFrom(
-        reference=ReferenceValue(value="this#satellite")
-    )
+    v = ViewFrom(reference=ReferenceValue(value="this#satellite"))
     assert str(v) == expected_result
 
 
@@ -798,7 +794,7 @@ def test_viewfrom_has_delete():
 
 def test_viewfrom_no_values_raises_error():
     with pytest.raises(ValidationError) as _:
-        ViewFrom()  # type: ignore
+        ViewFrom()
 
 
 def test_single_interval_value():
@@ -1500,24 +1496,26 @@ def test_position_bad_cartesianVelocity():
     with pytest.raises(ValueError):
         Position(cartesianVelocity=[])
 
+
 def test_position_bad_multipleTypes():
     with pytest.raises(TypeError):
-        Position(cartesian=[0],reference=ReferenceValue(value="1#this"))
+        Position(cartesian=[0], reference=ReferenceValue(value="1#this"))
     with pytest.raises(TypeError):
-        Position(cartographicRadians=[0],reference=ReferenceValue(value="1#this"))
+        Position(cartographicRadians=[0], reference=ReferenceValue(value="1#this"))
     with pytest.raises(TypeError):
-        Position(cartographicDegrees=[0],reference=ReferenceValue(value="1#this"))
+        Position(cartographicDegrees=[0], reference=ReferenceValue(value="1#this"))
     with pytest.raises(TypeError):
-        Position(cartesianVelocity=[0],reference=ReferenceValue(value="1#this"))
+        Position(cartesianVelocity=[0], reference=ReferenceValue(value="1#this"))
 
     with pytest.raises(TypeError):
-        Position(cartesian=[0],reference="1#this")
+        Position(cartesian=[0], reference="1#this")
     with pytest.raises(TypeError):
-        Position(cartographicRadians=[0],reference="1#this")
+        Position(cartographicRadians=[0], reference="1#this")
     with pytest.raises(TypeError):
-        Position(cartographicDegrees=[0],reference="1#this")
+        Position(cartographicDegrees=[0], reference="1#this")
     with pytest.raises(TypeError):
-        Position(cartesianVelocity=[0],reference="1#this")
+        Position(cartesianVelocity=[0], reference="1#this")
+
 
 def test_no_values():
     with pytest.raises(ValueError):
