@@ -138,6 +138,30 @@ def test_point():
     assert str(pnt) == expected_result
 
 
+def test_NearFarScalar_list():
+    expected_result = """{
+    "show": true,
+    "pixelSize": 10.0,
+    "scaleByDistance": {
+        "nearFarScalar": [
+            150.0,
+            2.0,
+            15000000.0,
+            0.5
+        ]
+    },
+    "disableDepthTestDistance": 1.2
+}"""
+
+    pnt = Point(
+        show=True,
+        pixelSize=10,
+        scaleByDistance=NearFarScalar(nearFarScalar=[150, 2.0, 15000000, 0.5]),
+        disableDepthTestDistance=1.2,
+    )
+    assert str(pnt) == expected_result
+
+
 def test_arc_type():
     expected_result = """{
     "arcType": "NONE"
