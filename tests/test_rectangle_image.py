@@ -24,11 +24,29 @@ def image():
     return base64_data.decode()
 
 
-def test_rectangle_coordinates_invalid_if_nothing_given():
-    with pytest.raises(TypeError) as excinfo:
+def test_bad_rectangle_coordinates():
+    with pytest.raises(
+        TypeError, match="Only one of wsen, wsenDegrees or reference must be given"
+    ):
         RectangleCoordinates()
-
-    assert "One of wsen or wsenDegrees must be given" in excinfo.exconly()
+    with pytest.raises(
+        TypeError, match="Only one of wsen, wsenDegrees or reference must be given"
+    ):
+        RectangleCoordinates(wsen=[0, 0, 0], wsenDegrees=[0, 0, 0])
+    with pytest.raises(
+        TypeError, match="Only one of wsen, wsenDegrees or reference must be given"
+    ):
+        RectangleCoordinates(wsen=[0, 0, 0], reference="this#that")
+    with pytest.raises(
+        TypeError, match="Only one of wsen, wsenDegrees or reference must be given"
+    ):
+        RectangleCoordinates(wsenDegrees=[0, 0, 0], reference="this#that")
+    with pytest.raises(
+        TypeError, match="Only one of wsen, wsenDegrees or reference must be given"
+    ):
+        RectangleCoordinates(
+            wsenDegrees=[0, 0, 0], wsen=[0, 0, 0], reference="this#that"
+        )
 
 
 def test_packet_rectangles(image):
