@@ -298,6 +298,14 @@ class Color(BaseCZMLObject, Interpolatable, Deletable):
     )
     """The color specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.rgba, self.rgbaf, self.reference)) != 1:
+            raise TypeError("Only one of rgba, rgbaf or reference must be given")
+        return self
+
     @field_validator("rgba")
     @classmethod
     def validate_rgba(cls, c):
@@ -527,12 +535,22 @@ class EllipsoidRadii(BaseCZMLObject, Interpolatable, Deletable):
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/EllipsoidRadii>`__ for it's definition."""
 
-    cartesian: Cartesian3Value | list[float] | TimeIntervalCollection = Field()
+    cartesian: Cartesian3Value | list[float] | TimeIntervalCollection = Field(
+        default=None
+    )
     """The radii specified as a three-dimensional Cartesian value `[X, Y, Z]`, in world coordinates in meters. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3Value>`__ for it's definition."""
     reference: None | ReferenceValue | str | TimeIntervalCollection = Field(
         default=None
     )
     """The radii specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.cartesian, self.reference)) != 1:
+            raise TypeError("Only one of cartesian or reference must be given")
+        return self
 
     @field_validator("cartesian")
     @classmethod
@@ -818,6 +836,14 @@ class ArcType(BaseCZMLObject, Deletable):
     )
     """The arc type specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.arcType, self.reference)) != 1:
+            raise TypeError("Only one of arcType or reference must be given")
+        return self
+
     @field_validator("reference")
     @classmethod
     def validate_reference(cls, r):
@@ -837,6 +863,14 @@ class ShadowMode(BaseCZMLObject, Deletable):
         default=None
     )
     """The shadow mode specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.shadowMode, self.reference)) != 1:
+            raise TypeError("Only one of shadowMode or reference must be given")
+        return self
 
     @field_validator("reference")
     @classmethod
@@ -860,6 +894,17 @@ class ClassificationType(BaseCZMLObject, Deletable):
     )
     """The classification type specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if (
+            sum(val is not None for val in (self.classificationType, self.reference))
+            != 1
+        ):
+            raise TypeError("Only one of classificationType or reference must be given")
+        return self
+
     @field_validator("reference")
     @classmethod
     def validate_reference(cls, r):
@@ -881,6 +926,22 @@ class DistanceDisplayCondition(BaseCZMLObject, Interpolatable, Deletable):
         default=None
     )
     """The value specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if (
+            sum(
+                val is not None
+                for val in (self.distanceDisplayCondition, self.reference)
+            )
+            != 1
+        ):
+            raise TypeError(
+                "Only one of distanceDisplayCondition or reference must be given"
+            )
+        return self
 
     @field_validator("reference")
     @classmethod
@@ -1178,6 +1239,14 @@ class BoxDimensions(BaseCZMLObject, Interpolatable, Deletable):
     )
     """The dimensions specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.cartesian, self.reference)) != 1:
+            raise TypeError("Only one of cartesian or reference must be given")
+        return self
+
     @field_validator("cartesian")
     @classmethod
     def validate_cartesian(cls, r):
@@ -1226,8 +1295,13 @@ class RectangleCoordinates(BaseCZMLObject, Interpolatable, Deletable):
     def checks(self):
         if self.delete:
             return self
-        if sum(val is not None for val in (self.wsen, self.wsenDegrees)) != 1:
-            raise TypeError("One of wsen or wsenDegrees must be given")
+        if (
+            sum(
+                val is not None for val in (self.wsen, self.wsenDegrees, self.reference)
+            )
+            != 1
+        ):
+            raise TypeError("Only one of wsen, wsenDegrees or reference must be given")
         return self
 
     @field_validator("reference")
@@ -1251,6 +1325,14 @@ class EyeOffset(BaseCZMLObject, Deletable):
         default=None
     )
     """The eye offset specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.cartesian, self.reference)) != 1:
+            raise TypeError("Only one of cartesian or reference must be given")
+        return self
 
     @field_validator("cartesian")
     @classmethod
@@ -1281,6 +1363,14 @@ class HeightReference(BaseCZMLObject, Deletable):
     )
     """The height reference specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.heightReference, self.reference)) != 1:
+            raise TypeError("Only one of heightReference or reference must be given")
+        return self
+
     @field_validator("reference")
     @classmethod
     def validate_reference(cls, r):
@@ -1303,6 +1393,14 @@ class ColorBlendMode(BaseCZMLObject, Deletable):
     )
     """The color blend mode specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.colorBlendMode, self.reference)) != 1:
+            raise TypeError("Only one of colorBlendMode or reference must be given")
+        return self
+
     @field_validator("reference")
     @classmethod
     def validate_reference(cls, r):
@@ -1322,6 +1420,14 @@ class CornerType(BaseCZMLObject, Deletable):
         default=None
     )
     """The corner style specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.cornerType, self.reference)) != 1:
+            raise TypeError("Only one of cornerType or reference must be given")
+        return self
 
     @field_validator("reference")
     @classmethod
@@ -1478,6 +1584,14 @@ class NearFarScalar(BaseCZMLObject, Interpolatable, Deletable):
     )
     """The value specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
 
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.nearFarScalar, self.reference)) != 1:
+            raise TypeError("Only one of nearFarScalar or reference must be given")
+        return self
+
     @field_validator("reference")
     @classmethod
     def validate_reference(cls, r):
@@ -1549,6 +1663,14 @@ class Orientation(BaseCZMLObject, Interpolatable, Deletable):
     """The orientation specified as a reference to another property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/ReferenceValue>`__ for it's definition."""
     velocityReference: None | str | TimeIntervalCollection = Field(default=None)
     """The orientation specified as the normalized velocity vector of a position property. The reference must be to a position property. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/VelocityReferenceValue>`__ for it's definition."""
+
+    @model_validator(mode="after")
+    def checks(self):
+        if self.delete:
+            return self
+        if sum(val is not None for val in (self.unitQuaternion, self.reference)) != 1:
+            raise TypeError("Only one of unitQuaternion or reference must be given")
+        return self
 
     @field_validator("reference")
     @classmethod
