@@ -535,7 +535,7 @@ class EllipsoidRadii(BaseCZMLObject, Interpolatable, Deletable):
 
     See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/EllipsoidRadii>`__ for it's definition."""
 
-    cartesian: Cartesian3Value | list[float] | TimeIntervalCollection = Field(
+    cartesian: Cartesian3Value | list[float] | TimeIntervalCollection | None = Field(
         default=None
     )
     """The radii specified as a three-dimensional Cartesian value `[X, Y, Z]`, in world coordinates in meters. See `here <https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/Cartesian3Value>`__ for it's definition."""
@@ -1779,7 +1779,9 @@ class Uri(BaseCZMLObject, Deletable):
         return r
 
     @model_serializer
-    def custom_serializer(self) -> None | str | TimeIntervalCollection:
+    def custom_serializer(
+        self,
+    ) -> None | str | dict[str, bool] | TimeIntervalCollection:
         if self.delete:
             return {"delete": True}
-        return self.uri if self.uri is not None else self.reference
+        return self.uri if self.uri is not None else str(self.reference)
