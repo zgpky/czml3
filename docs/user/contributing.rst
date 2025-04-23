@@ -1,7 +1,7 @@
 Contributing
 ============
 
-This page details the features/properties that are missing from czml3. The lists are incomplete.
+This page details the features/properties that are missing from ``czml3``. The lists are incomplete.
 
 Missing CZML Properties
 -----------------------
