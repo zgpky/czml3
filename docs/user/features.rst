@@ -1,7 +1,7 @@
 Features
 ========
 
-czml3 is built upon `pydantic <https://docs.pydantic.dev/latest/>`_ and leverages a lot of it's capabilities to achieve it's goal: making the process of writing CZML files in Python easy.
+``czml3`` is built upon `pydantic <https://docs.pydantic.dev/latest/>`_ and leverages a lot of it's capabilities to achieve it's goal: making the process of writing CZML files in Python easy.
 
 Type Checking
 -------------
@@ -18,12 +18,12 @@ Forbid Unrecognised Properties
 
 Unrecognised inputs to classes are forbidden, which ensures the CZML document contains only recognised and valid fields.
 
-If a valid property of a czml3 class is missing then please `open an issue <https://github.com/Stoops-ML/czml3/issues>`_.
+If a valid property of a ``czml3`` class is missing then please `open an issue <https://github.com/Stoops-ML/czml3/issues>`_.
 
 Minimal CZML File Creation
 --------------------------
 
-czml3 will remove all fields that are not set (i.e. ``None``), which ensures that the CZML file is as small as possible.
+``czml3`` will remove all fields that are not set (i.e. ``None``), which ensures that the CZML file is as small as possible.
 
 Performant JSON Serialisation
 --------------------------
